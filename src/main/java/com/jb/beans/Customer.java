@@ -10,7 +10,8 @@ public class Customer {
     private String lastName;
     private String email;
     private String password;
-    private List <Coupon> coupons = new ArrayList<>();
+    private List<Coupon> coupons = new ArrayList<>();
+
 
     public Customer(int id, String firstName, String lastName, String email, String password, List<Coupon> coupons) {
         this(firstName, lastName, email, password, coupons);

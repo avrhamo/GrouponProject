@@ -1,7 +1,5 @@
 package com.jb.db;
 
-import com.jb.utils.DBUtils;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
