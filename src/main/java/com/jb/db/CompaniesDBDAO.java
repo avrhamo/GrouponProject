@@ -23,8 +23,7 @@ public class CompaniesDBDAO implements CompaniesDAO{
     private final String QUERY_SELECT_ONE_BY_ID = "SELECT * FROM `bhp-g2-coup-sys-p2`.`companies` " +
             "WHERE `id` = ? ;";
 
-    private final String QUERY_SELECT_ALL = "INSERT INTO `bhp-g2-coup-sys-p2`.`companies` " +
-            "(`id`, `name`, `email`, `password`) VALUES (?, ?, ?, ?);";
+    private final String QUERY_SELECT_ALL = "SELECT * FROM `bhp-g2-coup-sys-p2`.`companies` ;";
 
     private final String QUERY_DELETE_COMPANY = "INSERT INTO `bhp-g2-coup-sys-p2`.`companies` " +
             "(`id`, `name`, `email`, `password`) VALUES (?, ?, ?, ?);";
