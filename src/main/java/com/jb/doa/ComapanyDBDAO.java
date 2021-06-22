@@ -2,7 +2,9 @@ package com.jb.doa;
 
 import com.jb.beans.Company;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ComapanyDBDAO implements CompaneisDAO {
 
@@ -20,6 +22,8 @@ public class ComapanyDBDAO implements CompaneisDAO {
 
     @Override
     public boolean isCompanyExist(String Email, String password) {
+        Map<Integer, Object> map = new HashMap<>();
+
         return false;
     }
 
