@@ -3,6 +3,7 @@ package com.jb.db;
 import com.jb.beans.Company;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface CompaniesDAO {
 
@@ -14,7 +15,7 @@ public interface CompaniesDAO {
 
     public void deleteCompany(Company company);
 
-    public void getAllCompanies();
+    public List<Company> getAllCompanies() throws SQLException, InterruptedException;
 
     public Company getOneCompany(int id);
 }
