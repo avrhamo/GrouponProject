@@ -1,4 +1,4 @@
-package com.jb.db;
+package com.jb.dao;
 
 import com.jb.beans.Company;
 

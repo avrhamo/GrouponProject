@@ -1,11 +1,10 @@
 package com.jb.playground;
 
 import com.jb.beans.Company;
-import com.jb.db.CompaniesDAO;
-import com.jb.db.CompaniesDBDAO;
+import com.jb.dao.CompaniesDAO;
+import com.jb.doa.CompaniesDBDAO;
 import com.jb.db.DatabaseManager;
 import com.jb.utils.ArtUtils;
-import com.jb.utils.DBUtils;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -55,7 +54,6 @@ public class TestCompany {
         companyDAO.deleteCompany(2);
         System.out.println("Company NIKE2 was deleted");
         System.out.println(companyDAO.isCompanyExists("nikeEmail2@nike.com","2nike1234"));
-        System.out.println("END");
 
         //Update company
         System.out.println(ArtUtils.UPDATE);
@@ -64,6 +62,9 @@ public class TestCompany {
         c1.setPassword("hello world");
         companyDAO.updateCompany(c1);
         System.out.println(companyDAO.getOneCompany(1).toString());
+
+        System.out.println("END");
+
     }
 
 }

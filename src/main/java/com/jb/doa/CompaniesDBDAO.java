@@ -1,7 +1,8 @@
-package com.jb.db;
+package com.jb.doa;
 
 import com.jb.beans.Company;
-import com.jb.doa.ComapanyDBDAO;
+import com.jb.dao.CompaniesDAO;
+import com.jb.db.ConnectionPool;
 import com.jb.utils.DBUtils;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class CompaniesDBDAO implements CompaniesDAO{
+public class CompaniesDBDAO implements CompaniesDAO {
 
     private final String QUERY_INSERT_COMPANY = "INSERT INTO `bhp-g2-coup-sys-p2`.`companies` " +
             "(`id`, `name`, `email`, `password`) VALUES (?, ?, ?, ?);";
