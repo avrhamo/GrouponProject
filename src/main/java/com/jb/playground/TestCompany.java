@@ -1,15 +1,17 @@
 package com.jb.playground;
 
-import com.jb.beans.Customer;
-import com.jb.dao.customersDAO;
-import com.jb.doa.customersDBDAO;
+import com.jb.beans.Company;
+import com.jb.beans.Company;
+import com.jb.dao.CompaniesDAO;
+import com.jb.dao.CompaniesDAO;
+import com.jb.doa.CompaniesDBDAO;
 import com.jb.db.DatabaseManager;
 import com.jb.utils.ArtUtils;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class TestCustomer {
+public class TestCompany {
 
     public static void main(String[] args) throws SQLException, InterruptedException {
 
@@ -17,51 +19,51 @@ public class TestCustomer {
         //Drop and Create DB
         DatabaseManager.DropAndCreate();
 
-        //Access to Customer table
-        customersDAO CustomerDAO = new customersDBDAO();
+        //Access to company table
+        CompaniesDAO CompanyDAO = new CompaniesDBDAO();
 
-        // Insert customers
+        // Insert companies
         System.out.println(ArtUtils.INSERT);
-        Customer c1 = new Customer("NIKE1","nikeEmail1@nike.com","1nike1234",null);
-        Customer c2 = new Customer("NIKE2","nikeEmail2@nike.com","2nike1234",null);
-        Customer c3 = new Customer("NIKE3","nikeEmail3@nike.com","3nike1234",null);
+        Company c1 = new Company("NIKE1","nikeEmail1@nike.com","1nike1234",null);
+        Company c2 = new Company("NIKE2","nikeEmail2@nike.com","2nike1234",null);
+        Company c3 = new Company("NIKE3","nikeEmail3@nike.com","3nike1234",null);
 
-        CustomerDAO.addCustomer(c1);
-        CustomerDAO.addCustomer(c2);
-        CustomerDAO.addCustomer(c3);
+        CompanyDAO.addCompany(c1);
+        CompanyDAO.addCompany(c2);
+        CompanyDAO.addCompany(c3);
 
-        //Get all customers
+        //Get all companies
         System.out.println(ArtUtils.GET_ALL);
-        List<Customer> customers = CustomerDAO.getAllcustomers();
-        customers.forEach(System.out::println);
+        List<Company> companies = CompanyDAO.getAllCompanies();
+        companies.forEach(System.out::println);
 
-        //Get one Customer by id
+        //Get one company by id
         System.out.println(ArtUtils.GET_SINGLE);
-        System.out.println(CustomerDAO.getOneCustomer(1).toString());
+        System.out.println(CompanyDAO.getOneCompany(1).toString());
 
         System.out.println(ArtUtils.GET_SINGLE);
-        System.out.println(CustomerDAO.getOneCustomer(2).toString());
+        System.out.println(CompanyDAO.getOneCompany(2).toString());
 
-        //Select Customer by mail and password
-        System.out.println("Is Customer "+ CustomerDAO.getOneCustomer(2).getName() + " exist?");
-        Customer fromDB = CustomerDAO.getOneCustomer(1);
+        //Select company by mail and password
+        System.out.println("Is company "+ CompanyDAO.getOneCompany(2).getName() + " exist?");
+        Company fromDB = CompanyDAO.getOneCompany(1);
         String email = fromDB.getEmail();
         String password = fromDB.getPassword();
         System.out.println(email + password);
-        System.out.println(CustomerDAO.isCustomerExists(email, password));
+        System.out.println(CompanyDAO.isCompanyExists(email, password));
 
-        //Delete Customer
-        CustomerDAO.deleteCustomer(2);
-        System.out.println("Customer NIKE2 was deleted");
-        System.out.println(CustomerDAO.isCustomerExists("nikeEmail2@nike.com","2nike1234"));
+        //Delete company
+        CompanyDAO.deleteCompany(2);
+        System.out.println("company NIKE2 was deleted");
+        System.out.println(CompanyDAO.isCompanyExists("nikeEmail2@nike.com","2nike1234"));
 
-        //Update Customer
+        //Update company
         System.out.println(ArtUtils.UPDATE);
         System.out.println("changing password to `hello world` -- comapnyId = 1");
-        c1 = CustomerDAO.getOneCustomer(1);
+        c1 = CompanyDAO.getOneCompany(1);
         c1.setPassword("hello world");
-        CustomerDAO.updateCustomer(c1);
-        System.out.println(CustomerDAO.getOneCustomer(1).toString());
+        CompanyDAO.updateCompany(c1);
+        System.out.println(CompanyDAO.getOneCompany(1).toString());
 
         System.out.println("END");
 

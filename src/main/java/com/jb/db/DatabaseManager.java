@@ -15,8 +15,8 @@ public class DatabaseManager {
 
     private static final String DROP_SCHEMA = "DROP SCHEMA `bhp-g2-coup-sys-p2`;";
     private static final String CREATE_SCHEMA = "CREATE SCHEMA `bhp-g2-coup-sys-p2`;";
-    private static final String CREATE_TABLE_customers =
-            "CREATE TABLE `bhp-g2-coup-sys-p2`.`customers` (\n" +
+    private static final String CREATE_TABLE_COMPANIES =
+            "CREATE TABLE `bhp-g2-coup-sys-p2`.`companies` (\n" +
             "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `name` VARCHAR(45) NOT NULL,\n" +
             "  `email` VARCHAR(45) NOT NULL,\n" +
@@ -41,7 +41,7 @@ public class DatabaseManager {
     private static final String CREATE_TABLE_COUPONS =
             "CREATE TABLE `bhp-g2-coup-sys-p2`.`coupons` (\n" +
                     "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                    "  `Customer_id` INT NOT NULL,\n" +
+                    "  `company_id` INT NOT NULL,\n" +
                     "  `category_id` INT NOT NULL,\n" +
                     "  `title` VARCHAR(45) NOT NULL,\n" +
                     "  `description` VARCHAR(45) NOT NULL,\n" +
@@ -51,11 +51,11 @@ public class DatabaseManager {
                     "  `price` DOUBLE NOT NULL,\n" +
                     "  `image` VARCHAR(45) NOT NULL,\n" +
                     "  PRIMARY KEY (`id`),\n" +
-                    "  INDEX `Customer_id_idx` (`Customer_id` ASC) VISIBLE,\n" +
+                    "  INDEX `company_id_idx` (`company_id` ASC) VISIBLE,\n" +
                     "  INDEX `category_id_idx` (`category_id` ASC) VISIBLE,\n" +
-                    "  CONSTRAINT `Customer_id`\n" +
-                    "    FOREIGN KEY (`Customer_id`)\n" +
-                    "    REFERENCES `bhp-g2-coup-sys-p2`.`customers` (`id`)\n" +
+                    "  CONSTRAINT `company_id`\n" +
+                    "    FOREIGN KEY (`company_id`)\n" +
+                    "    REFERENCES `bhp-g2-coup-sys-p2`.`companies` (`id`)\n" +
                     "    ON DELETE NO ACTION\n" +
                     "    ON UPDATE NO ACTION,\n" +
                     "  CONSTRAINT `category_id`\n" +
@@ -64,15 +64,15 @@ public class DatabaseManager {
                     "    ON DELETE NO ACTION\n" +
                     "    ON UPDATE NO ACTION);";
 
-    private static final String CREATE_TABLE_CUSTOMERS_COUPONS =
+    private static final String CREATE_TABLE_companies_COUPONS =
             "CREATE TABLE `bhp-g2-coup-sys-p2`.`customers_coupons` (\n" +
-                    "  `customer_id` INT NOT NULL,\n" +
+                    "  `company_id` INT NOT NULL,\n" +
                     "  `coupon_id` INT NOT NULL,\n" +
-                    "  PRIMARY KEY (`customer_id`, `coupon_id`),\n" +
+                    "  PRIMARY KEY (`company_id`, `coupon_id`),\n" +
                     "  INDEX `coupon_id_idx` (`coupon_id` ASC) VISIBLE,\n" +
-                    "  CONSTRAINT `customr_id`\n" +
-                    "    FOREIGN KEY (`customer_id`)\n" +
-                    "    REFERENCES `bhp-g2-coup-sys-p2`.`customers` (`id`)\n" +
+                    "  CONSTRAINT `customer_id`\n" +
+                    "    FOREIGN KEY (`company_id`)\n" +
+                    "    REFERENCES `bhp-g2-coup-sys-p2`.`companies` (`id`)\n" +
                     "    ON DELETE NO ACTION\n" +
                     "    ON UPDATE NO ACTION,\n" +
                     "  CONSTRAINT `coupon_id`\n" +
@@ -84,11 +84,11 @@ public class DatabaseManager {
     public static void DropAndCreate() throws SQLException {
         DBUtils.runQuery(DROP_SCHEMA);
         DBUtils.runQuery(CREATE_SCHEMA);
-        DBUtils.runQuery(CREATE_TABLE_customers);
+        DBUtils.runQuery(CREATE_TABLE_COMPANIES);
         DBUtils.runQuery(CREATE_TABLE_CUSTOMERS);
         DBUtils.runQuery(CREATE_TABLE_CATEGORIES);
         DBUtils.runQuery(CREATE_TABLE_COUPONS);
-        DBUtils.runQuery(CREATE_TABLE_CUSTOMERS_COUPONS);
+        DBUtils.runQuery(CREATE_TABLE_companies_COUPONS);
     }
 
 

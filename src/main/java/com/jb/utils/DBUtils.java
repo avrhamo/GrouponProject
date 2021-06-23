@@ -1,12 +1,8 @@
 package com.jb.utils;
 
-import com.jb.beans.Customer;
 import com.jb.db.ConnectionPool;
-
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 public class DBUtils {

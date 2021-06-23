@@ -1,7 +1,7 @@
 package com.jb.doa;
 
-import com.jb.beans.Customer;
-import com.jb.dao.customersDAO;
+import com.jb.beans.Company;
+import com.jb.dao.CompaniesDAO;
 import com.jb.db.ConnectionPool;
 import com.jb.utils.DBUtils;
 
@@ -11,25 +11,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class customersDBDAO implements customersDAO {
+public class CompaniesDBDAO implements CompaniesDAO {
 
-    private final String QUERY_INSERT_Customer = "INSERT INTO `bhp-g2-coup-sys-p2`.`customers` " +
+    private final String QUERY_INSERT_company = "INSERT INTO `bhp-g2-coup-sys-p2`.`companies` " +
             "(`id`, `name`, `email`, `password`) VALUES (?, ?, ?, ?);";
 
-    private final String QUERY_UPDATE_Customer = "UPDATE `bhp-g2-coup-sys-p2`.`customers` SET `name` = ?, `email` = ?, `password` = ? WHERE (`id` = ?);";
+    private final String QUERY_UPDATE_company = "UPDATE `bhp-g2-coup-sys-p2`.`companies` SET `name` = ?, `email` = ?, `password` = ? WHERE (`id` = ?);";
 
-    private final String QUERY_SELECT_ONE = "SELECT COUNT(*) FROM `bhp-g2-coup-sys-p2`.`customers` WHERE `email` = ? AND `password` = ? ;";
+    private final String QUERY_SELECT_ONE = "SELECT COUNT(*) FROM `bhp-g2-coup-sys-p2`.`companies` WHERE `email` = ? AND `password` = ? ;";
 
-    private final String QUERY_SELECT_ONE_BY_ID = "SELECT * FROM `bhp-g2-coup-sys-p2`.`customers` " +
+    private final String QUERY_SELECT_ONE_BY_ID = "SELECT * FROM `bhp-g2-coup-sys-p2`.`companies` " +
             "WHERE `id` = ? ;";
 
-    private final String QUERY_SELECT_ALL = "SELECT * FROM `bhp-g2-coup-sys-p2`.`customers` ;";
+    private final String QUERY_SELECT_ALL = "SELECT * FROM `bhp-g2-coup-sys-p2`.`companies` ;";
 
-    private final String QUERY_DELETE_Customer = "DELETE FROM `bhp-g2-coup-sys-p2`.`customers` " +
+    private final String QUERY_DELETE_company = "DELETE FROM `bhp-g2-coup-sys-p2`.`companies` " +
             "WHERE `id` = ? ;";
 
     @Override
-    public boolean isCustomerExists(String email, String password) throws SQLException {
+    public boolean isCompanyExists(String email, String password) throws SQLException {
         Map<Integer, Object> map = new HashMap<>();
         map.put(1,email);
         map.put(2,password);
@@ -39,35 +39,35 @@ public class customersDBDAO implements customersDAO {
         }
 
     @Override
-    public void addCustomer(Customer Customer) throws SQLException {
+    public void addCompany(Company company) throws SQLException {
         Map<Integer, Object> map = new HashMap<>();
-        map.put(1, Customer.getId());
-        map.put(2, Customer.getName());
-        map.put(3, Customer.getEmail());
-        map.put(4, Customer.getPassword());
-        DBUtils.runQuery(QUERY_INSERT_Customer,map);
+        map.put(1, company.getId());
+        map.put(2, company.getName());
+        map.put(3, company.getEmail());
+        map.put(4, company.getPassword());
+        DBUtils.runQuery(QUERY_INSERT_company,map);
     }
 
     @Override
-    public void updateCustomer(Customer Customer) throws SQLException {
+    public void updateCompany(Company company) throws SQLException {
         Map<Integer, Object> map = new HashMap<>();
-        map.put(1, Customer.getName());
-        map.put(2, Customer.getEmail());
-        map.put(3, Customer.getPassword());
-        map.put(4, Customer.getId());
-        DBUtils.runQuery(QUERY_UPDATE_Customer, map);
+        map.put(1, company.getName());
+        map.put(2, company.getEmail());
+        map.put(3, company.getPassword());
+        map.put(4, company.getId());
+        DBUtils.runQuery(QUERY_UPDATE_company, map);
     }
 
     @Override
-    public void deleteCustomer(int CustomerId) throws SQLException {
+    public void deleteCompany(int companyId) throws SQLException {
         Map<Integer, Object> map = new HashMap<>();
-        map.put(1, CustomerId);
-        DBUtils.runQuery(QUERY_DELETE_Customer, map);
+        map.put(1, companyId);
+        DBUtils.runQuery(QUERY_DELETE_company, map);
     }
 
     @Override
-    public List<Customer> getAllcustomers() throws SQLException, InterruptedException {
-        List<Customer> customers = new ArrayList<>();
+    public List<Company> getAllCompanies() throws SQLException, InterruptedException {
+        List<Company> companies = new ArrayList<>();
         Connection connection = null;
         try {
             connection = ConnectionPool.getInstance().getConnection();
@@ -78,26 +78,25 @@ public class customersDBDAO implements customersDAO {
                 String name = resultSet.getString(2);
                 String email = resultSet.getString(3);
                 String password = resultSet.getString(4);
-                Customer Customer = new Customer(id,name,email,password,null);
-                customers.add(Customer);
+                Company company = new Company(id,name,email,password,null);
+                companies.add(company);
             }
         }catch (Exception e ) {
             System.out.println(e.getMessage());
         }finally {
             ConnectionPool.getInstance().getConnection();
         }
-        return customers;
+        return companies;
     }
 
-
     @Override
-    public Customer getOneCustomer(int id) throws SQLException {
+    public Company getOneCompany(int id) throws SQLException {
 
         Map<Integer, Object> map = new HashMap<>();
         map.put(1,id);
         ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_SELECT_ONE_BY_ID,map);
         resultSet.next();
-        return new Customer(resultSet.getInt(1),resultSet.getString(2),
+        return new Company(resultSet.getInt(1),resultSet.getString(2),
                resultSet.getString(3),resultSet.getString(4),null);
 
     }
