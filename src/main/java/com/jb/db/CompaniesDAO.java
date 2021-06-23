@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface CompaniesDAO {
 
-    public boolean isCompanyExists(String email, String password);
+    public boolean isCompanyExists(String email, String password) throws SQLException;
 
     public void addCompany(Company company) throws SQLException;
 
-    public void updateCompany(Company company);
+    public void updateCompany(Company company) throws SQLException;
 
-    public void deleteCompany(Company company);
+    public void deleteCompany(int companyId) throws SQLException;
 
     public List<Company> getAllCompanies() throws SQLException, InterruptedException;
 
-    public Company getOneCompany(int id);
+    public Company getOneCompany(int id) throws SQLException;
 }

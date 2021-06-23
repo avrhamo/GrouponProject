@@ -63,7 +63,6 @@ public class DBUtils {
             //STEP 5 - Close Connection to DB
             ConnectionPool.getInstance().restoreConnection(connection);
         }
-
     }
 
     public static ResultSet runQueryWithResults(String sql) throws SQLException {
