@@ -3,7 +3,7 @@ package com.jb.beans;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Company {
+public class Customer {
 
     private int id;
     private String name;
@@ -12,12 +12,12 @@ public class Company {
     private List<Coupon> coupons= new ArrayList<>();
 
 
-    public Company(int id, String name, String email, String password, List<Coupon> coupons) {
+    public Customer(int id, String name, String email, String password, List<Coupon> coupons) {
         this(name, email, password, coupons);
         this.id = id;
     }
 
-    public Company(String name, String email, String password, List<Coupon> coupons) {
+    public Customer(String name, String email, String password, List<Coupon> coupons) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -66,7 +66,7 @@ public class Company {
 
     @Override
     public String toString() {
-        return "Company{" +
+        return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +

@@ -1,6 +1,6 @@
 package com.jb.utils;
 
-import com.jb.beans.Company;
+import com.jb.beans.Customer;
 import com.jb.db.ConnectionPool;
 
 import java.sql.*;

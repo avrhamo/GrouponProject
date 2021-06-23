@@ -1,15 +1,15 @@
 package com.jb.playground;
 
-import com.jb.beans.Company;
-import com.jb.dao.CompaniesDAO;
-import com.jb.doa.CompaniesDBDAO;
+import com.jb.beans.Customer;
+import com.jb.dao.customersDAO;
+import com.jb.doa.customersDBDAO;
 import com.jb.db.DatabaseManager;
 import com.jb.utils.ArtUtils;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class TestCompany {
+public class TestCustomer {
 
     public static void main(String[] args) throws SQLException, InterruptedException {
 
@@ -17,51 +17,51 @@ public class TestCompany {
         //Drop and Create DB
         DatabaseManager.DropAndCreate();
 
-        //Access to company table
-        CompaniesDAO companyDAO = new CompaniesDBDAO();
+        //Access to Customer table
+        customersDAO CustomerDAO = new customersDBDAO();
 
-        // Insert companies
+        // Insert customers
         System.out.println(ArtUtils.INSERT);
-        Company c1 = new Company("NIKE1","nikeEmail1@nike.com","1nike1234",null);
-        Company c2 = new Company("NIKE2","nikeEmail2@nike.com","2nike1234",null);
-        Company c3 = new Company("NIKE3","nikeEmail3@nike.com","3nike1234",null);
+        Customer c1 = new Customer("NIKE1","nikeEmail1@nike.com","1nike1234",null);
+        Customer c2 = new Customer("NIKE2","nikeEmail2@nike.com","2nike1234",null);
+        Customer c3 = new Customer("NIKE3","nikeEmail3@nike.com","3nike1234",null);
 
-        companyDAO.addCompany(c1);
-        companyDAO.addCompany(c2);
-        companyDAO.addCompany(c3);
+        CustomerDAO.addCustomer(c1);
+        CustomerDAO.addCustomer(c2);
+        CustomerDAO.addCustomer(c3);
 
-        //Get all companies
+        //Get all customers
         System.out.println(ArtUtils.GET_ALL);
-        List<Company> companies = companyDAO.getAllCompanies();
-        companies.forEach(System.out::println);
+        List<Customer> customers = CustomerDAO.getAllcustomers();
+        customers.forEach(System.out::println);
 
-        //Get one company by id
+        //Get one Customer by id
         System.out.println(ArtUtils.GET_SINGLE);
-        System.out.println(companyDAO.getOneCompany(1).toString());
+        System.out.println(CustomerDAO.getOneCustomer(1).toString());
 
         System.out.println(ArtUtils.GET_SINGLE);
-        System.out.println(companyDAO.getOneCompany(2).toString());
+        System.out.println(CustomerDAO.getOneCustomer(2).toString());
 
-        //Select company by mail and password
-        System.out.println("Is company "+ companyDAO.getOneCompany(2).getName() + " exist?");
-        Company fromDB = companyDAO.getOneCompany(1);
+        //Select Customer by mail and password
+        System.out.println("Is Customer "+ CustomerDAO.getOneCustomer(2).getName() + " exist?");
+        Customer fromDB = CustomerDAO.getOneCustomer(1);
         String email = fromDB.getEmail();
         String password = fromDB.getPassword();
         System.out.println(email + password);
-        System.out.println(companyDAO.isCompanyExists(email, password));
+        System.out.println(CustomerDAO.isCustomerExists(email, password));
 
-        //Delete company
-        companyDAO.deleteCompany(2);
-        System.out.println("Company NIKE2 was deleted");
-        System.out.println(companyDAO.isCompanyExists("nikeEmail2@nike.com","2nike1234"));
+        //Delete Customer
+        CustomerDAO.deleteCustomer(2);
+        System.out.println("Customer NIKE2 was deleted");
+        System.out.println(CustomerDAO.isCustomerExists("nikeEmail2@nike.com","2nike1234"));
 
-        //Update company
+        //Update Customer
         System.out.println(ArtUtils.UPDATE);
         System.out.println("changing password to `hello world` -- comapnyId = 1");
-        c1 = companyDAO.getOneCompany(1);
+        c1 = CustomerDAO.getOneCustomer(1);
         c1.setPassword("hello world");
-        companyDAO.updateCompany(c1);
-        System.out.println(companyDAO.getOneCompany(1).toString());
+        CustomerDAO.updateCustomer(c1);
+        System.out.println(CustomerDAO.getOneCustomer(1).toString());
 
         System.out.println("END");
 

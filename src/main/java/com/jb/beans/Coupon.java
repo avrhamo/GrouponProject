@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Coupon {
 
     private int id;
-    private int company_id;
+    private int Customer_id;
     private String title;
     private String description;
     private Date start_date;
@@ -14,13 +14,13 @@ public class Coupon {
     private double price;
     private String image;
 
-    public Coupon(int id, int company_id, String title, String description, Date start_date, Date end_date, int amount, double price, String image) {
-        this(company_id, title, description, start_date, end_date, amount, price, image);
+    public Coupon(int id, int Customer_id, String title, String description, Date start_date, Date end_date, int amount, double price, String image) {
+        this(Customer_id, title, description, start_date, end_date, amount, price, image);
         this.id = id;
     }
-    public Coupon(int company_id, String title, String description, Date start_date, Date end_date, int amount, double price, String image) {
+    public Coupon(int Customer_id, String title, String description, Date start_date, Date end_date, int amount, double price, String image) {
         this.id = id;
-        this.company_id = company_id;
+        this.Customer_id = Customer_id;
         this.title = title;
         this.description = description;
         this.start_date = start_date;
@@ -38,12 +38,12 @@ public class Coupon {
         this.id = id;
     }
 
-    public int getCompany_id() {
-        return company_id;
+    public int getCustomer_id() {
+        return Customer_id;
     }
 
-    public void setCompany_id(int company_id) {
-        this.company_id = company_id;
+    public void setCustomer_id(int Customer_id) {
+        this.Customer_id = Customer_id;
     }
 
     public String getTitle() {
@@ -106,7 +106,7 @@ public class Coupon {
     public String toString() {
         return "Coupon{" +
                 "id=" + id +
-                ", company_id=" + company_id +
+                ", Customer_id=" + Customer_id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", start_date=" + start_date +

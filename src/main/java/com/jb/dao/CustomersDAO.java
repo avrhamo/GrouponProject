@@ -1,6 +1,6 @@
 package com.jb.dao;
 
-import com.jb.beans.Company;
+import com.jb.beans.Customer;
 import com.jb.beans.Customer;
 
 import java.sql.SQLException;
@@ -14,9 +14,9 @@ public interface CustomersDAO {
 
     public void updateCustomer(Customer customer) throws SQLException;
 
-    public void deleteCompany(int CustomerId) throws SQLException;
+    public void deleteCustomer(int CustomerId) throws SQLException;
 
-    public List<Company> getAllCustomers() throws SQLException, InterruptedException;
+    public List<Customer> getAllCustomers() throws SQLException, InterruptedException;
 
-    public Company getOneCustomer(int id) throws SQLException;
+    public Customer getOneCustomer(int id) throws SQLException;
 }

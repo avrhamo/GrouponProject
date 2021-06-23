@@ -1,21 +1,21 @@
 package com.jb.dao;
 
-import com.jb.beans.Company;
+import com.jb.beans.Customer;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface CompaniesDAO {
+public interface customersDAO {
 
-    public boolean isCompanyExists(String email, String password) throws SQLException;
+    public boolean isCustomerExists(String email, String password) throws SQLException;
 
-    public void addCompany(Company company) throws SQLException;
+    public void addCustomer(Customer Customer) throws SQLException;
 
-    public void updateCompany(Company company) throws SQLException;
+    public void updateCustomer(Customer Customer) throws SQLException;
 
-    public void deleteCompany(int companyId) throws SQLException;
+    public void deleteCustomer(int CustomerId) throws SQLException;
 
-    public List<Company> getAllCompanies() throws SQLException, InterruptedException;
+    public List<Customer> getAllcustomers() throws SQLException, InterruptedException;
 
-    public Company getOneCompany(int id) throws SQLException;
+    public Customer getOneCustomer(int id) throws SQLException;
 }
