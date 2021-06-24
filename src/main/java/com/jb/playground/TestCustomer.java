@@ -24,9 +24,9 @@ public class TestCustomer {
 
         // Insert companies
         System.out.println(ArtUtils.INSERT);
-        Customer c1 = new Customer("Dani", "Din", "Dani@Din.mail.com","1234");
-        Customer c2 = new Customer("David","Fogel","nikeEmail2@nike.com","12345678");
-        Customer c3 = new Customer("Beni","Davidov", "nikeEmail3@nike.com","3nike1234");
+        Customer c1 = new Customer("Dani", "Din", "Dani@Din.mail.com", "1234");
+        Customer c2 = new Customer("David", "Fogel", "nikeEmail2@nike.com", "12345678");
+        Customer c3 = new Customer("Beni", "Davidov", "nikeEmail3@nike.com", "3nike1234");
 
         customerDAO.addCustomer(c1);
         customerDAO.addCustomer(c2);
@@ -41,7 +41,7 @@ public class TestCustomer {
 
         //Update customer
         System.out.println(ArtUtils.UPDATE);
-        c1.setLastName("NAMELESS!!!");
+        c1.setLastName("newFirstName");
         customerDAO.updateCustomer(c1);
         customerDAO.getOneCustomer(1);
 

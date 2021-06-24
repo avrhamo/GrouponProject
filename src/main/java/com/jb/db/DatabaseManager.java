@@ -64,7 +64,7 @@ public class DatabaseManager {
                     "    ON DELETE NO ACTION\n" +
                     "    ON UPDATE NO ACTION);";
 
-    private static final String CREATE_TABLE_companies_COUPONS =
+    private static final String CREATE_TABLE_COMPANIES_COUPONS =
             "CREATE TABLE `bhp-g2-coup-sys-p2`.`customers_coupons` (\n" +
                     "  `company_id` INT NOT NULL,\n" +
                     "  `coupon_id` INT NOT NULL,\n" +
@@ -88,7 +88,7 @@ public class DatabaseManager {
         DBUtils.runQuery(CREATE_TABLE_CUSTOMERS);
         DBUtils.runQuery(CREATE_TABLE_CATEGORIES);
         DBUtils.runQuery(CREATE_TABLE_COUPONS);
-        DBUtils.runQuery(CREATE_TABLE_companies_COUPONS);
+        DBUtils.runQuery(CREATE_TABLE_COMPANIES_COUPONS);
     }
 
 

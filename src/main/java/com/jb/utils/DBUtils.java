@@ -48,6 +48,8 @@ public class DBUtils {
                     statement.setFloat(key,(float) value);
                 }else if(value instanceof Date){
                     statement.setObject(key,value);
+                }else if(value instanceof Double){
+                    statement.setObject(key,value);
                 }
             }
             statement.executeUpdate();

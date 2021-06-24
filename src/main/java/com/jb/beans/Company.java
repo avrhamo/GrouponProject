@@ -66,7 +66,7 @@ public class Company {
 
     @Override
     public String toString() {
-        return "company{" +
+        return "Company{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +

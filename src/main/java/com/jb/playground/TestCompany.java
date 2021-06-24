@@ -53,9 +53,9 @@ public class TestCompany {
         System.out.println(CompanyDAO.isCompanyExists(email, password));
 
         //Delete company
-        CompanyDAO.deleteCompany(2);
-        System.out.println("company NIKE2 was deleted");
-        System.out.println(CompanyDAO.isCompanyExists("nikeEmail2@nike.com","2nike1234"));
+//        CompanyDAO.deleteCompany(2);
+//        System.out.println("company NIKE2 was deleted");
+//        System.out.println(CompanyDAO.isCompanyExists("nikeEmail2@nike.com","2nike1234"));
 
         //Update company
         System.out.println(ArtUtils.UPDATE);

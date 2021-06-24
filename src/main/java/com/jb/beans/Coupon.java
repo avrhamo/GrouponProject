@@ -5,7 +5,8 @@ import java.sql.Date;
 public class Coupon {
 
     private int id;
-    private int company_id;
+    private int companyId;
+    private int categoryId;
     private String title;
     private String description;
     private Date start_date;
@@ -14,13 +15,14 @@ public class Coupon {
     private double price;
     private String image;
 
-    public Coupon(int id, int company_id, String title, String description, Date start_date, Date end_date, int amount, double price, String image) {
-        this(company_id, title, description, start_date, end_date, amount, price, image);
+    public Coupon(int id, int companyId, int categoryId, String title, String description, Date start_date, Date end_date, int amount, double price, String image) {
+        this(companyId, categoryId, title, description, start_date, end_date, amount, price, image);
         this.id = id;
     }
-    public Coupon(int company_id, String title, String description, Date start_date, Date end_date, int amount, double price, String image) {
+    public Coupon(int companyId, int categoryId, String title, String description, Date start_date, Date end_date, int amount, double price, String image) {
         this.id = id;
-        this.company_id = company_id;
+        this.companyId = companyId;
+        this.categoryId = companyId;
         this.title = title;
         this.description = description;
         this.start_date = start_date;
@@ -38,12 +40,20 @@ public class Coupon {
         this.id = id;
     }
 
-    public int getcompany_id() {
-        return company_id;
+    public int getCompanyId() {
+        return companyId;
     }
 
-    public void setcompany_id(int company_id) {
-        this.company_id = company_id;
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getTitle() {
@@ -106,7 +116,8 @@ public class Coupon {
     public String toString() {
         return "Coupon{" +
                 "id=" + id +
-                ", company_id=" + company_id +
+                ", companyId=" + companyId +
+                ", categoryId=" + categoryId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", start_date=" + start_date +
