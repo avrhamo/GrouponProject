@@ -5,5 +5,8 @@ public enum Category {
     PC,
     VACATION,
     SPORTS,
-    BODY_CARE
+    BODY_CARE;
+
+    public final int value = 1 + ordinal();
+
 }

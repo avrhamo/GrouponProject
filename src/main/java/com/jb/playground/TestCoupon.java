@@ -1,13 +1,16 @@
 package com.jb.playground;
 
+import com.jb.beans.Category;
 import com.jb.beans.Company;
 import com.jb.beans.Coupon;
 import com.jb.dao.CompaniesDAO;
 import com.jb.dao.CouponsDAO;
 import com.jb.db.DatabaseManager;
+import com.jb.doa.CategoriesDBDAO;
 import com.jb.doa.CompaniesDBDAO;
 import com.jb.doa.CouponsDBDAO;
 import com.jb.utils.ArtUtils;
+import com.jb.utils.DBUtils;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -23,6 +26,9 @@ public class TestCoupon {
         //Access to company table
         CompaniesDAO CompanyDAO = new CompaniesDBDAO();
 
+        //Add categories
+        CategoriesDBDAO.addCategories();
+
         // Insert companies
         System.out.println(ArtUtils.INSERT);
         Company c1 = new Company("NIKE1","nikeEmail1@nike.com","1nike1234",null);
@@ -33,8 +39,10 @@ public class TestCoupon {
         CompanyDAO.addCompany(c2);
         CompanyDAO.addCompany(c3);
 
-        //Add categories
 
+//        DBUtils.runQuery("INSERT INTO `bhp-g2-coup-sys-p2`.`categories` (`id`, `name`) VALUES ('1', 'FOOD');");
+//        DBUtils.runQuery("INSERT INTO `bhp-g2-coup-sys-p2`.`categories` (`id`, `name`) VALUES ('2', 'PC');");
+//        DBUtils.runQuery("INSERT INTO `bhp-g2-coup-sys-p2`.`categories` (`id`, `name`) VALUES ('3', 'VACATION');");
 
         //Access to coupon table
         CouponsDAO couponsDAO = new CouponsDBDAO();
