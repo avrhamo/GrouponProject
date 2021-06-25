@@ -64,15 +64,15 @@ public class DatabaseManager {
                     "    ON DELETE NO ACTION\n" +
                     "    ON UPDATE NO ACTION);";
 
-    private static final String CREATE_TABLE_COMPANIES_COUPONS =
+    private static final String CREATE_TABLE_CUSTOMERS_COUPONS =
             "CREATE TABLE `bhp-g2-coup-sys-p2`.`customers_coupons` (\n" +
-                    "  `company_id` INT NOT NULL,\n" +
+                    "  `customer_id` INT NOT NULL,\n" +
                     "  `coupon_id` INT NOT NULL,\n" +
-                    "  PRIMARY KEY (`company_id`, `coupon_id`),\n" +
+                    "  PRIMARY KEY (`customer_id`, `coupon_id`),\n" +
                     "  INDEX `coupon_id_idx` (`coupon_id` ASC) VISIBLE,\n" +
                     "  CONSTRAINT `customer_id`\n" +
-                    "    FOREIGN KEY (`company_id`)\n" +
-                    "    REFERENCES `bhp-g2-coup-sys-p2`.`companies` (`id`)\n" +
+                    "    FOREIGN KEY (`customer_id`)\n" +
+                    "    REFERENCES `bhp-g2-coup-sys-p2`.`customers` (`id`)\n" +
                     "    ON DELETE NO ACTION\n" +
                     "    ON UPDATE NO ACTION,\n" +
                     "  CONSTRAINT `coupon_id`\n" +
@@ -88,7 +88,7 @@ public class DatabaseManager {
         DBUtils.runQuery(CREATE_TABLE_CUSTOMERS);
         DBUtils.runQuery(CREATE_TABLE_CATEGORIES);
         DBUtils.runQuery(CREATE_TABLE_COUPONS);
-        DBUtils.runQuery(CREATE_TABLE_COMPANIES_COUPONS);
+        DBUtils.runQuery(CREATE_TABLE_CUSTOMERS_COUPONS);
     }
 
 

@@ -11,12 +11,8 @@ import java.util.Map;
 
 public class CouponsDBDAO implements CouponsDAO {
 
-    public static final String QUERY_INSERT_COUPON = "INSERT INTO `bhp-g2-coup-sys-p2`.`coupons` " +
-            "(`id`, `company_id`, `category_id`, `title`, `description`, `start_date`, `end_date`, `amount`, `price`, `image`) " +
-            "VALUES (?, (SELECT `id` FROM `bhp-g2-coup-sys-p2`.`companies` WHERE id = ?), (SELECT `id` FROM `bhp-g2-coup-sys-p2`.`categories` WHERE id = ?), ?, ?, ?, ?, ?, ?, ?) ;";
-    public static final String QUERY_UPDATE_COUPON_BY_ID = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` " +
-            "SET `company_id` = ?, `category_id` = ?, `title` = ?, `description` = ?, `start_date` = ?, `end_date` = ?," +
-            " `amount` = ?, `price` = ?, `image` = ? WHERE (`id` = ?);";
+    public static final String QUERY_INSERT_COUPON = "INSERT INTO `bhp-g2-coup-sys-p2`.`coupons` (`id`, `company_id`, `category_id`, `title`, `description`, `start_date`, `end_date`, `amount`, `price`, `image`) VALUES (?, (SELECT `id` FROM `bhp-g2-coup-sys-p2`.`companies` WHERE id = ?), (SELECT `id` FROM `bhp-g2-coup-sys-p2`.`categories` WHERE id = ?), ?, ?, ?, ?, ?, ?, ?) ;";
+    public static final String QUERY_UPDATE_COUPON_BY_ID = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET `title` = ?, `description` = ?, `start_date` = ?, `end_date` = ?, `amount` = ?, `price` = ?, `image` = ? WHERE (`id` = ?); ";
     public static final String QUERY_DELETE_COUPON = "DELETE FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `id` = ? ;";
     public static final String QUERY_GET_ALL_COUPONS = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons`";
     public static final String QUERY_GET_ONE_COUPON_BY_ID = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `id` = ? ;";
@@ -42,12 +38,23 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public void updateCoupon(Coupon coupon) throws SQLException {
-
+        Map<Integer, Object> map = new HashMap<>();
+        map.put(1, coupon.getTitle());
+        map.put(2, coupon.getDescription());
+        map.put(3, coupon.getStart_date());
+        map.put(4, coupon.getEnd_date());
+        map.put(5, coupon.getAmount());
+        map.put(6, coupon.getPrice());
+        map.put(7, coupon.getImage());
+        map.put(8, coupon.getId());
+        DBUtils.runQuery(QUERY_UPDATE_COUPON_BY_ID, map);
     }
 
     @Override
     public void deleteCoupon(int couponId) throws SQLException {
-
+        Map<Integer, Object> map = new HashMap<>();
+        map.put(1, couponId);
+        DBUtils.runQuery(QUERY_DELETE_COUPON, map);
     }
 
     @Override

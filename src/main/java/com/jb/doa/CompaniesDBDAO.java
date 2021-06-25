@@ -13,10 +13,10 @@ import java.util.*;
 
 public class CompaniesDBDAO implements CompaniesDAO {
 
-    private final String QUERY_INSERT_company = "INSERT INTO `bhp-g2-coup-sys-p2`.`companies` " +
+    private final String QUERY_INSERT_COMPANY = "INSERT INTO `bhp-g2-coup-sys-p2`.`companies` " +
             "(`id`, `name`, `email`, `password`) VALUES (?, ?, ?, ?);";
 
-    private final String QUERY_UPDATE_company = "UPDATE `bhp-g2-coup-sys-p2`.`companies` SET `name` = ?, `email` = ?, `password` = ? WHERE (`id` = ?);";
+    private final String QUERY_UPDATE_COMPANY = "UPDATE `bhp-g2-coup-sys-p2`.`companies` SET `name` = ?, `email` = ?, `password` = ? WHERE (`id` = ?);";
 
     private final String QUERY_SELECT_ONE = "SELECT COUNT(*) FROM `bhp-g2-coup-sys-p2`.`companies` WHERE `email` = ? AND `password` = ? ;";
 
@@ -25,7 +25,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
     private final String QUERY_SELECT_ALL = "SELECT * FROM `bhp-g2-coup-sys-p2`.`companies` ;";
 
-    private final String QUERY_DELETE_company = "DELETE FROM `bhp-g2-coup-sys-p2`.`companies` " +
+    private final String QUERY_DELETE_COMPANY = "DELETE FROM `bhp-g2-coup-sys-p2`.`companies` " +
             "WHERE `id` = ? ;";
 
     @Override
@@ -45,7 +45,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
         map.put(2, company.getName());
         map.put(3, company.getEmail());
         map.put(4, company.getPassword());
-        DBUtils.runQuery(QUERY_INSERT_company,map);
+        DBUtils.runQuery(QUERY_INSERT_COMPANY,map);
     }
 
     @Override
@@ -55,14 +55,14 @@ public class CompaniesDBDAO implements CompaniesDAO {
         map.put(2, company.getEmail());
         map.put(3, company.getPassword());
         map.put(4, company.getId());
-        DBUtils.runQuery(QUERY_UPDATE_company, map);
+        DBUtils.runQuery(QUERY_UPDATE_COMPANY, map);
     }
 
     @Override
     public void deleteCompany(int companyId) throws SQLException {
         Map<Integer, Object> map = new HashMap<>();
         map.put(1, companyId);
-        DBUtils.runQuery(QUERY_DELETE_company, map);
+        DBUtils.runQuery(QUERY_DELETE_COMPANY, map);
     }
 
     @Override

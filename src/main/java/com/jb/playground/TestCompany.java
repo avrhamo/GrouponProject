@@ -15,6 +15,12 @@ public class TestCompany {
 
     public static void main(String[] args) throws SQLException, InterruptedException {
 
+        TestCompanyDB();
+
+    }
+
+    public static void TestCompanyDB() throws SQLException, InterruptedException {
+
         System.out.println("START");
         //Drop and Create DB
         DatabaseManager.DropAndCreate();
@@ -24,9 +30,9 @@ public class TestCompany {
 
         // Insert companies
         System.out.println(ArtUtils.INSERT);
-        Company c1 = new Company("NIKE1","nikeEmail1@nike.com","1nike1234",null);
-        Company c2 = new Company("NIKE2","nikeEmail2@nike.com","2nike1234",null);
-        Company c3 = new Company("NIKE3","nikeEmail3@nike.com","3nike1234",null);
+        Company c1 = new Company("NIKE1", "nikeEmail1@nike.com", "1nike1234", null);
+        Company c2 = new Company("NIKE2", "nikeEmail2@nike.com", "2nike1234", null);
+        Company c3 = new Company("NIKE3", "nikeEmail3@nike.com", "3nike1234", null);
 
         CompanyDAO.addCompany(c1);
         CompanyDAO.addCompany(c2);
@@ -45,7 +51,7 @@ public class TestCompany {
         System.out.println(CompanyDAO.getOneCompany(2).toString());
 
         //Select company by mail and password
-        System.out.println("Is company "+ CompanyDAO.getOneCompany(2).getName() + " exist?");
+        System.out.println("Is company " + CompanyDAO.getOneCompany(2).getName() + " exist?");
         Company fromDB = CompanyDAO.getOneCompany(1);
         String email = fromDB.getEmail();
         String password = fromDB.getPassword();

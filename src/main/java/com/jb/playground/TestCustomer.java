@@ -15,6 +15,11 @@ public class TestCustomer {
 
     public static void main(String[] args) throws SQLException, InterruptedException {
 
+        TestCustomersDB();
+
+    }
+
+    public static void TestCustomersDB() throws SQLException, InterruptedException {
         System.out.println("START");
         //Drop and Create DB
         DatabaseManager.DropAndCreate();
