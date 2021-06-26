@@ -14,6 +14,7 @@ import com.jb.utils.DBUtils;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 
 public class TestCoupon {
 
@@ -78,19 +79,29 @@ public class TestCoupon {
         coupon1.setTitle("Cool Discount1 updated!!!");
         couponsDAO.updateCoupon(coupon1);
 
-        CustomerCouponDBDAO.InsertCustomersCoupons(1,1);
-        CustomerCouponDBDAO.InsertCustomersCoupons(2,2);
-        CustomerCouponDBDAO.InsertCustomersCoupons(3,3);
+        CustomerCouponDBDAO x = new CustomerCouponDBDAO();
+        x.InsertCustomersCoupons(1,1);
+        x.InsertCustomersCoupons(2,2);
+        x.InsertCustomersCoupons(3,3);
 
-        //delete coupon
-        System.out.println(ArtUtils.DELETE);
-        System.out.println("********************************************************");
-        CustomerCouponDBDAO.DeleteRowCustomersCoupons(1,1);
-        couponsDAO.deleteCoupon(coupon1.getId());
+//        //delete coupon
+//        System.out.println(ArtUtils.DELETE);
+//        CustomerCouponDBDAO.DeleteRowCustomersCoupons(2,2);
+//        couponsDAO.deleteCoupon(coupon2.getId());
+//        customerDAO.deleteCustomer(2);
+//
+//        System.out.println("********************************************************");
+//        CustomerCouponDBDAO.DeleteRowCustomersCoupons(1,1);
+//        couponsDAO.deleteCoupon(coupon1.getId());
+//
+//        CustomerCouponDBDAO.DeleteRowCustomersCoupons(2,2);
+//        customerDAO.deleteCustomer(2);
+//        System.out.println("customer 2 was deleted");
 
-        CustomerCouponDBDAO.DeleteRowCustomersCoupons(2,2);
-        customerDAO.deleteCustomer(2);
-        System.out.println("customer 2 was deleted");
+        List<Coupon> cops = couponsDAO.getAllCoupons();
+        cops.forEach(System.out::println);
+
+        System.out.println(couponsDAO.getOneCoupon(1).toString());
 
         System.out.println("END");
     }

@@ -1,12 +1,16 @@
 package com.jb.doa;
 
+import com.jb.beans.Company;
 import com.jb.beans.Coupon;
 import com.jb.dao.CouponsDAO;
+import com.jb.dao.CustomersCouponDAO;
+import com.jb.db.ConnectionPool;
 import com.jb.utils.DBUtils;
 
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CouponsDBDAO implements CouponsDAO {
@@ -16,8 +20,8 @@ public class CouponsDBDAO implements CouponsDAO {
     public static final String QUERY_DELETE_COUPON = "DELETE FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `id` = ? ;";
     public static final String QUERY_GET_ALL_COUPONS = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons`";
     public static final String QUERY_GET_ONE_COUPON_BY_ID = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `id` = ? ;";
-    public static final String QUERY_UPDATE_PURCHASE = "";
-    public static final String QUERY_DELETE_PURCHASE = "";
+    public static final String QUERY_UPDATE_PURCHASE = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET (`amount` = `amount` - 1) WHERE (`id` = ?); ";
+    public static final String QUERY_DELETE_PURCHASE = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET (`amount` = `amount` + 1) WHERE (`id` = ?); ";
 
 
     @Override
@@ -58,22 +62,75 @@ public class CouponsDBDAO implements CouponsDAO {
     }
 
     @Override
-    public ArrayList<Coupon> getAllCoupons() throws SQLException {
-        return null;
+    public List<Coupon> getAllCoupons() throws SQLException, InterruptedException {
+        List<Coupon> coupons = new ArrayList<>();
+        Connection connection = null;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(QUERY_GET_ALL_COUPONS);
+            ResultSet resultSet  = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                int companyId = resultSet.getInt(2);
+                int categoryId = resultSet.getInt(3);
+                String title = resultSet.getString(4);
+                String description= resultSet.getString(5);
+                Date start_date = resultSet.getDate(6);
+                Date end_date = resultSet.getDate(7);
+                int amount = resultSet.getInt(8);
+                double price = resultSet.getDouble(9);
+                String image= resultSet.getString(10);
+                Coupon coupon = new Coupon(id,companyId,categoryId,title,description,start_date,end_date,amount,price,image);
+                coupons.add(coupon);
+            }
+        }catch (Exception e ) {
+            System.out.println(e.getMessage());
+        }finally {
+            ConnectionPool.getInstance().getConnection();
+        }
+        return coupons;
     }
 
     @Override
     public Coupon getOneCoupon(int couponId) throws SQLException {
-        return null;
+        Map<Integer, Object> map = new HashMap<>();
+        map.put(1,couponId);
+        ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_GET_ONE_COUPON_BY_ID,map);
+        resultSet.next();
+        int id = resultSet.getInt(1);
+        int companyId = resultSet.getInt(2);
+        int categoryId = resultSet.getInt(3);
+        String title = resultSet.getString(4);
+        String description= resultSet.getString(5);
+        Date start_date = resultSet.getDate(6);
+        Date end_date = resultSet.getDate(7);
+        int amount = resultSet.getInt(8);
+        double price = resultSet.getDouble(9);
+        String image= resultSet.getString(10);
+        return new Coupon(id,companyId,categoryId,title,description,start_date,end_date,amount,price,image);
     }
 
     @Override
     public void addCouponPurchase(int customerId, int couponId) throws SQLException {
+        Map<Integer, Object> map = new HashMap<>();
+        map.put(1, couponId);
+        DBUtils.runQuery(QUERY_UPDATE_PURCHASE, map);
 
+        CustomersCouponDAO customersCouponsDBDAO = new CustomerCouponDBDAO();
+        if (!customersCouponsDBDAO.isExistCustomersCoupons(customerId, couponId)) {
+            customersCouponsDBDAO.InsertCustomersCoupons(customerId, couponId);
+        }
     }
 
     @Override
     public void deleteCouponPurchase(int customerId, int couponId) throws SQLException {
+        Map<Integer, Object> map = new HashMap<>();
+        map.put(1, couponId);
+        DBUtils.runQuery(QUERY_DELETE_PURCHASE, map);
 
+        CustomersCouponDAO customersCouponsDBDAO = new CustomerCouponDBDAO();
+        if (customersCouponsDBDAO.isExistCustomersCoupons(customerId, couponId)) {
+            customersCouponsDBDAO.DeleteRowCustomersCoupons(customerId, couponId);
+        }
     }
 }
