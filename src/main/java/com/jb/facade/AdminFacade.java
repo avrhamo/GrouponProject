@@ -2,13 +2,28 @@ package com.jb.facade;
 
 import com.jb.beans.Company;
 import com.jb.beans.Customer;
+import com.jb.dao.CompaniesDAO;
+import com.jb.dao.CouponsDAO;
+import com.jb.dao.CustomersDAO;
 
 import java.util.List;
 
-public class AdminFacade {
+public class AdminFacade extends ClientFacade{
 
     private final String EMAIL = "admin@admin.com";
     private final String PASSWORD = "admin";
+
+    public AdminFacade(CompaniesDAO companiesDAO) {
+        super(companiesDAO);
+    }
+
+    public AdminFacade(CustomersDAO customersDAO) {
+        super(customersDAO);
+    }
+
+    public AdminFacade(CouponsDAO couponsDAO) {
+        super(couponsDAO);
+    }
 
     public void AdminFacade() {
 

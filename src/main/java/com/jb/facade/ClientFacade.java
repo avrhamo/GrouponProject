@@ -1,4 +1,25 @@
 package com.jb.facade;
 
-public class ClientFacade {
+import com.jb.dao.CompaniesDAO;
+import com.jb.dao.CouponsDAO;
+import com.jb.dao.CustomersDAO;
+
+public abstract class ClientFacade {
+
+    protected CompaniesDAO companiesDAO;
+    protected CustomersDAO customersDAO;
+    protected CouponsDAO couponsDAO;
+
+    public ClientFacade(CompaniesDAO companiesDAO) {
+        this.companiesDAO = companiesDAO;
+    }
+
+    public ClientFacade(CustomersDAO customersDAO) {
+        this.customersDAO = customersDAO;
+    }
+
+    public ClientFacade(CouponsDAO couponsDAO) {
+        this.couponsDAO = couponsDAO;
+    }
+
 }

@@ -3,15 +3,17 @@ package com.jb.facade;
 import com.jb.beans.Category;
 import com.jb.beans.Coupon;
 import com.jb.beans.Customer;
+import com.jb.dao.CompaniesDAO;
+import com.jb.dao.CustomersDAO;
 
 import java.util.List;
 
-public class CustomerFacade {
+public class CustomerFacade extends ClientFacade{
 
     private int customerId;
 
-    public CustomerFacade(int customerId) {
-        this.customerId = customerId;
+    public CustomerFacade(CustomersDAO customersDAO) {
+        super(customersDAO);
     }
 
     public int getCompanyId() {
