@@ -10,6 +10,10 @@ public abstract class ClientFacade {
     protected CustomersDAO customersDAO;
     protected CouponsDAO couponsDAO;
 
+    public boolean login(String email, String password) {
+        return false;
+    }
+
     public ClientFacade(CompaniesDAO companiesDAO) {
         this.companiesDAO = companiesDAO;
     }
