@@ -15,10 +15,12 @@ import java.util.Map;
 
 public class CouponsDBDAO implements CouponsDAO {
 
-    public static final String QUERY_INSERT_COUPON = "INSERT INTO `bhp-g2-coup-sys-p2`.`coupons` (`id`, `company_id`, `category_id`, `title`, `description`, `start_date`, `end_date`, `amount`, `price`, `image`) VALUES (?, (SELECT `id` FROM `bhp-g2-coup-sys-p2`.`companies` WHERE id = ?), (SELECT `id` FROM `bhp-g2-coup-sys-p2`.`categories` WHERE id = ?), ?, ?, ?, ?, ?, ?, ?) ;";
+    public static final String QUERY_INSERT_COUPON = "INSERT INTO `bhp-g2-coup-sys-p2`.`coupons` (`id`, `company_id`, `category_id`, `title`, `description`, `start_date`, `end_date`, `amount`, `price`, `image`) " +
+            "VALUES (?, (SELECT `id` FROM `bhp-g2-coup-sys-p2`.`companies` WHERE id = ?), (SELECT `id` FROM `bhp-g2-coup-sys-p2`.`categories` WHERE id = ?), ?, ?, ?, ?, ?, ?, ?) ;";
     public static final String QUERY_UPDATE_COUPON_BY_ID = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET `title` = ?, `description` = ?, `start_date` = ?, `end_date` = ?, `amount` = ?, `price` = ?, `image` = ? WHERE (`id` = ?); ";
     public static final String QUERY_DELETE_COUPON = "DELETE FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `id` = ? ;";
     public static final String QUERY_GET_ALL_COUPONS = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons`";
+    public static final String QUERY_GET_ALL_COMPANY_COUPONS = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `company_id = ?";
     public static final String QUERY_GET_ONE_COUPON_BY_ID = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `id` = ? ;";
     public static final String QUERY_UPDATE_PURCHASE = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET (`amount` = `amount` - 1) WHERE (`id` = ?); ";
     public static final String QUERY_DELETE_PURCHASE = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET (`amount` = `amount` + 1) WHERE (`id` = ?); ";
@@ -69,6 +71,37 @@ public class CouponsDBDAO implements CouponsDAO {
             connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(QUERY_GET_ALL_COUPONS);
             ResultSet resultSet  = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                int companyId = resultSet.getInt(2);
+                int categoryId = resultSet.getInt(3);
+                String title = resultSet.getString(4);
+                String description= resultSet.getString(5);
+                Date start_date = resultSet.getDate(6);
+                Date end_date = resultSet.getDate(7);
+                int amount = resultSet.getInt(8);
+                double price = resultSet.getDouble(9);
+                String image= resultSet.getString(10);
+                Coupon coupon = new Coupon(id,companyId,categoryId,title,description,start_date,end_date,amount,price,image);
+                coupons.add(coupon);
+            }
+        }catch (Exception e ) {
+            System.out.println(e.getMessage());
+        }finally {
+            ConnectionPool.getInstance().getConnection();
+        }
+        return coupons;
+    }
+
+    @Override
+    public List<Coupon> getCompanyAllCoupons (Company company) throws SQLException, InterruptedException {
+        List<Coupon> coupons = new ArrayList<>();
+        Connection connection = null;
+        Map<Integer,Object> map = new HashMap<>();
+
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            ResultSet resultSet  = DBUtils.runQueryWithResults(QUERY_GET_ALL_COMPANY_COUPONS, map);
             while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 int companyId = resultSet.getInt(2);

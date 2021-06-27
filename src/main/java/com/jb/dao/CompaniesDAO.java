@@ -17,4 +17,6 @@ public interface CompaniesDAO {
     public List<Company> getAllCompanies() throws SQLException, InterruptedException;
 
     public Company getOneCompany(int id) throws SQLException;
+
+    public boolean isCompanyNameEmailExist (String companyName, String companyEmail) throws SQLException;
 }

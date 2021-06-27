@@ -8,4 +8,5 @@ public interface CustomersCouponDAO {
     public void DeleteRowCustomersCoupons(int customerId, int couponId) throws SQLException;
     public boolean isExistCustomersCoupons(int customerId, int couponId) throws SQLException;
 
+        public void DeleteByCouponId(int couponId) throws SQLException;
 }
