@@ -11,7 +11,8 @@ public class CustomerCouponDBDAO implements CustomersCouponDAO {
 
     private static final String INSERT_CUSTOMERS_COUPONS = "INSERT INTO `bhp-g2-coup-sys-p2`.`customers_coupons` (`customer_id`, `coupon_id`) VALUES ((SELECT `id` FROM `bhp-g2-coup-sys-p2`.`customers`WHERE `id` = ?), (SELECT `id` FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `id` = ?));";
     private static final String DELETE_CUSTOMERS_COUPONS = "DELETE FROM `bhp-g2-coup-sys-p2`.`customers_coupons` WHERE (`customer_id` = ?) and (`coupon_id` = ?);";
-    private static final String DELETE_ALL_COUPONS_BY_ID = "DELETE FROM `bhp-g2-coup-sys-p2`.`customers_coupons` WHERE (`customer_id` = ?) ;";
+    private static final String DELETE_ALL_COUPONS_BY_COP_ID = "DELETE FROM `bhp-g2-coup-sys-p2`.`customers_coupons` WHERE (`coupon_id` = ?) ;";
+    private static final String DELETE_ALL_COUPONS_BY_CUST_ID = "DELETE FROM `bhp-g2-coup-sys-p2`.`customers_coupons` WHERE (`customer_id` = ?) ;";
     private static final String SELECT_ONE_CUSTOMERS_COUPONS = "SELECT COUNT(*) FROM `bhp-g2-coup-sys-p2`.`customers_coupons` WHERE (`customer_id` = ?) and (`coupon_id` = ?);";
 
     @Override
@@ -44,6 +45,15 @@ public class CustomerCouponDBDAO implements CustomersCouponDAO {
     public void DeleteByCouponId(int couponId) throws SQLException {
         Map<Integer, Object> map = new HashMap<>();
         map.put(1, couponId);
-        DBUtils.runQuery(DELETE_ALL_COUPONS_BY_ID, map);
+        DBUtils.runQuery(DELETE_ALL_COUPONS_BY_COP_ID, map);
     }
+
+    @Override
+    public void DeleteCustomer(int couponId) throws SQLException {
+        Map<Integer, Object> map = new HashMap<>();
+        map.put(1, couponId);
+        DBUtils.runQuery(DELETE_ALL_COUPONS_BY_CUST_ID, map);
+    }
+
+
 }

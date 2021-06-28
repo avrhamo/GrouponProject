@@ -24,7 +24,7 @@ public class TestCoupon {
 
     }
 
-    private static void TestCouponsDB() throws SQLException, InterruptedException {
+    public static void TestCouponsDB() throws SQLException, InterruptedException {
 
         System.out.println("START");
 
@@ -33,7 +33,7 @@ public class TestCoupon {
 
         //Create companies,customers and categories
         TestCompany.TestCompanyDB();
-        TestCustomer.TestCustomersDB();
+        //TestCustomer.TestCustomersDB();
         CategoriesDBDAO.addCategories();
 
         System.out.println(ArtUtils.INSERT);

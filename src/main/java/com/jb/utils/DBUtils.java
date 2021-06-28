@@ -92,8 +92,10 @@ public class DBUtils {
                 }
                 else if (value instanceof Integer){
                     statement.setInt(key,(int)value);
-                }else if(value instanceof Float){
+                }else if (value instanceof Float){
                     statement.setFloat(key,(float) value);
+                }else if (value instanceof Double) {
+                    statement.setDouble(key, (Double)value);
                 }
             }
             resultSet = statement.executeQuery();

@@ -17,7 +17,7 @@ public interface CouponsDAO {
 
     public List<Coupon> getAllCoupons() throws SQLException, InterruptedException;
 
-    public List<Coupon> getCompanyAllCoupons(Company company) throws SQLException, InterruptedException;
+    public List<Coupon> getCompanyAllCoupons(int companyId) throws SQLException, InterruptedException;
 
     public Coupon getOneCoupon(int couponId) throws SQLException;
 
@@ -25,4 +25,9 @@ public interface CouponsDAO {
 
     public void deleteCouponPurchase(int customerId, int couponId)throws SQLException;
 
+    public boolean isCouponNameExistUnderCompany(int companyId, String title ) throws SQLException;
+
+    public List<Coupon> getAllCouponsByCategory(int companyId, int categoryId) throws SQLException, InterruptedException;
+
+    public List<Coupon> getAllCouponsUnderMaxPrice(int companyId, double maxPrice) throws SQLException, InterruptedException;
 }

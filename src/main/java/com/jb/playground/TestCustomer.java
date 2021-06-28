@@ -51,15 +51,14 @@ public class TestCustomer {
         customerDAO.getOneCustomer(1);
 
         //delete customer
-        System.out.println(ArtUtils.DELETE);
-        System.out.println("customer 1 was deleted");
-        customerDAO.deleteCustomer(1);
-        System.out.println("is Dani@Din.mail.com,1234  exist? ");
-        System.out.println(customerDAO.iscCustomerExists(c1.getEmail(), c1.getPassword()));
+//        System.out.println(ArtUtils.DELETE);
+//        System.out.println("customer 1 was deleted");
+//        customerDAO.deleteCustomer(1);
+//        System.out.println("is Dani@Din.mail.com,1234  exist? ");
+//        System.out.println(customerDAO.iscCustomerExists(c1.getEmail(), c1.getPassword()));
 
         //get one by ID
         System.out.println(ArtUtils.GET_SINGLE);
-        System.out.println("Try to get c2 only");
         System.out.println(customerDAO.getOneCustomer(2).toString());
         System.out.println(customerDAO.getOneCustomer(3).toString());
     }

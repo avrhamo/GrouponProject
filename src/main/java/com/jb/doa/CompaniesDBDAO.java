@@ -22,8 +22,8 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
     private final String QUERY_SELECT_ONE_BY_ID = "SELECT * FROM `bhp-g2-coup-sys-p2`.`companies` " +
             "WHERE `id` = ? ;";
-    private final String QUERY_SELECT_BY_NAME_OR_EMAIL = "SELECT * FROM `bhp-g2-coup-sys-p2`.`companies` " +
-            "WHERE `name` OR `email` = ? ;";
+    private final String QUERY_SELECT_BY_NAME_OR_EMAIL = "SELECT count(*) FROM `bhp-g2-coup-sys-p2`.`companies` " +
+            "WHERE `name` = ? OR `email` = ? ;";
 
     private final String QUERY_SELECT_ALL = "SELECT * FROM `bhp-g2-coup-sys-p2`.`companies` ;";
 
@@ -105,7 +105,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
     public boolean isCompanyNameEmailExist (String companyName, String companyEmail) throws SQLException {
         Map<Integer, Object> map = new HashMap<>();
         map.put(1,companyName);
-        map.put(1,companyEmail);
+        map.put(2,companyEmail);
         ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_SELECT_BY_NAME_OR_EMAIL, map);
         resultSet.next();
         return (resultSet.getInt(1)) == 1;

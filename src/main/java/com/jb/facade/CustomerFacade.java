@@ -13,7 +13,7 @@ public class CustomerFacade extends ClientFacade{
     private int customerId;
 
     public CustomerFacade(CustomersDAO customersDAO) {
-        super(customersDAO);
+        super();
     }
 
     public int getCompanyId() {

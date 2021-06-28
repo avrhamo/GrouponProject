@@ -3,25 +3,25 @@ package com.jb.facade;
 import com.jb.dao.CompaniesDAO;
 import com.jb.dao.CouponsDAO;
 import com.jb.dao.CustomersDAO;
+import com.jb.doa.CompaniesDBDAO;
+import com.jb.doa.CouponsDBDAO;
+import com.jb.doa.CustomerDBDAO;
+
+import java.sql.SQLException;
 
 public abstract class ClientFacade {
 
-    protected CompaniesDAO companiesDAO;
-    protected CustomersDAO customersDAO;
-    protected CouponsDAO couponsDAO;
+    CompaniesDAO companiesDAO;
+    CustomersDAO customersDAO;
+    CouponsDAO couponsDAO;
 
-    public abstract boolean login(String email, String password);
-
-    public ClientFacade(CompaniesDAO companiesDAO) {
-        this.companiesDAO = companiesDAO;
+    public ClientFacade() {
+        companiesDAO = new CompaniesDBDAO();
+        customersDAO = new CustomerDBDAO();
+        couponsDAO = new CouponsDBDAO();
     }
 
-    public ClientFacade(CustomersDAO customersDAO) {
-        this.customersDAO = customersDAO;
-    }
+    public abstract boolean login(String email, String password) throws SQLException;
 
-    public ClientFacade(CouponsDAO couponsDAO) {
-        this.couponsDAO = couponsDAO;
-    }
 
 }

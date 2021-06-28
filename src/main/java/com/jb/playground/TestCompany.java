@@ -65,7 +65,7 @@ public class TestCompany {
 
         //Update company
         System.out.println(ArtUtils.UPDATE);
-        System.out.println("changing password to `hello world` -- comapnyId = 1");
+        System.out.println("changing password to `hello world` -- companyId = 1");
         c1 = CompanyDAO.getOneCompany(1);
         c1.setPassword("hello world");
         CompanyDAO.updateCompany(c1);

@@ -18,4 +18,7 @@ public interface CustomersDAO {
     public List<Customer> getAllCustomers() throws SQLException, InterruptedException;
 
     public Customer getOneCustomer(int id) throws SQLException;
+
+    public boolean isEmailExist(String email) throws SQLException;
+
 }
