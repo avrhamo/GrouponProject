@@ -68,11 +68,17 @@ public class TestCoupon {
         Coupon coupon1 = new Coupon(1, 1, 1, "Cool Discount1", "Cool Discount1", Date.valueOf("2021-01-01"), Date.valueOf("2026-01-01"), 1000, 58.50, "somewhere1");
         Coupon coupon2 = new Coupon(2, 2, 2, "Cool Discount2", "Cool Discount2", Date.valueOf("2021-02-01"), Date.valueOf("2026-02-01"), 2000, 58.50, "somewhere2");
         Coupon coupon3 = new Coupon(3, 3, 3, "Cool Discount3", "Cool Discount3", Date.valueOf("2021-03-01"), Date.valueOf("2026-03-01"), 3000, 58.50, "somewhere3");
+        Coupon coupon4 = new Coupon( 4, 1, "Cool Discount4", "Cool Discount4", Date.valueOf("2021-01-01"), Date.valueOf("2026-01-01"), 0, 58.50, "somewhere1");
+        Coupon coupon5 = new Coupon( 5, 2, "Cool Discount5", "Cool Discount5", Date.valueOf("2021-02-01"), Date.valueOf("2026-02-01"), 2000, 58.50, "somewhere2");
+        Coupon coupon6 = new Coupon( 6, 3, "Cool Discount6", "Cool Discount6", Date.valueOf("2021-03-01"), Date.valueOf("2026-03-01"), 3000, 58.50, "somewhere3");
 
         //Insert to DB
         couponsDAO.addCoupon(coupon1);
         couponsDAO.addCoupon(coupon2);
         couponsDAO.addCoupon(coupon3);
+        couponsDAO.addCoupon(coupon4);
+        couponsDAO.addCoupon(coupon5);
+        couponsDAO.addCoupon(coupon6);
 
         //update coupon 1
         System.out.println(ArtUtils.UPDATE);

@@ -11,8 +11,6 @@ import java.util.List;
 public class TestAdminFacade {
 
     public static void main(String[] args) throws SQLException, InterruptedException {
-
-
         //Drop and Create DB
         DatabaseManager.DropAndCreate();
         //TestCompany.TestCompanyDB();

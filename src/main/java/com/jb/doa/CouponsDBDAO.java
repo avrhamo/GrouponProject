@@ -8,6 +8,7 @@ import com.jb.db.ConnectionPool;
 import com.jb.utils.DBUtils;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,9 +25,10 @@ public class CouponsDBDAO implements CouponsDAO {
     public static final String QUERY_GET_ALL_COUPONS_BY_CATEGORY = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `company_id` = ? AND `category_id` = ?";
     public static final String QUERY_GET_ALL_COMPANY_COUPONS = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `company_id` = ?";
     public static final String QUERY_GET_ONE_COUPON_BY_ID = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `id` = ? ;";
-    public static final String QUERY_UPDATE_PURCHASE = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET (`amount` = `amount` - 1) WHERE (`id` = ?); ";
-    public static final String QUERY_DELETE_PURCHASE = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET (`amount` = `amount` + 1) WHERE (`id` = ?); ";
+    public static final String QUERY_UPDATE_PURCHASE = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET `amount` = (`amount` - 1) WHERE (`id` = ?) AND (`amount` > 0) AND (`end_date` > ? ) ; ";
+    public static final String QUERY_DELETE_PURCHASE = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET `amount` = (`amount` + 1) WHERE (`id` = ?); ";
     public static final String QUERY_SELECT_COUPON_NAME_BY_COMPANY_ID = " SELECT COUNT(*) FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `company_id` = ? AND `title` = ? ; ";
+    public static final String QUERY_SELECT_CHECK_IF_VALID_TO_BY = " SELECT COUNT(*) FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `id` = ? AND (`amount` > 0) AND (`end_date` > ? ) ; ";
 
 
     @Override
@@ -148,12 +150,14 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public void addCouponPurchase(int customerId, int couponId) throws SQLException {
-        Map<Integer, Object> map = new HashMap<>();
-        map.put(1, couponId);
-        DBUtils.runQuery(QUERY_UPDATE_PURCHASE, map);
 
         CustomersCouponDAO customersCouponsDBDAO = new CustomerCouponDBDAO();
-        if (!customersCouponsDBDAO.isExistCustomersCoupons(customerId, couponId)) {
+        boolean isCustomerOwnCoupon = customersCouponsDBDAO.isExistCustomersCoupons(customerId, couponId);
+        if (!isCustomerOwnCoupon) {
+            Map<Integer, Object> map = new HashMap<>();
+            map.put(1, couponId);
+            map.put(2, Date.valueOf(LocalDate.now()).toString());
+            DBUtils.runQuery(QUERY_UPDATE_PURCHASE, map);
             customersCouponsDBDAO.InsertCustomersCoupons(customerId, couponId);
         }
     }
@@ -238,5 +242,15 @@ public class CouponsDBDAO implements CouponsDAO {
             ConnectionPool.getInstance().getConnection();
         }
         return coupons;
+    }
+
+    @Override
+    public boolean isCouponValidToPurchase(int couponId) throws SQLException {
+        Map<Integer, Object> map = new HashMap<>();
+        map.put(1, couponId);
+        map.put(2, Date.valueOf(LocalDate.now()).toString());
+        ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_SELECT_CHECK_IF_VALID_TO_BY, map);
+        resultSet.next();
+        return (resultSet.getInt(1)) == 1;
     }
 }

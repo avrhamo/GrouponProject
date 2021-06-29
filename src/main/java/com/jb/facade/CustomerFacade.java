@@ -6,11 +6,16 @@ import com.jb.beans.Customer;
 import com.jb.dao.CompaniesDAO;
 import com.jb.dao.CustomersDAO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class CustomerFacade extends ClientFacade{
 
     private int customerId;
+
+    public CustomerFacade(int customerId) {
+        this.customerId = customerId;
+    }
 
     public CustomerFacade(CustomersDAO customersDAO) {
         super();
@@ -28,8 +33,10 @@ public class CustomerFacade extends ClientFacade{
         return false;
     }
 
-    public void purchaseCoupon(Coupon coupon) {
-
+    public void purchaseCoupon(Coupon coupon) throws SQLException {
+        if (couponsDAO.isCouponValidToPurchase(coupon.getId()) ){
+            couponsDAO.addCouponPurchase(customerId, coupon.getId());
+    }
     }
 
     public List<Coupon> getCustomerCoupon () {
