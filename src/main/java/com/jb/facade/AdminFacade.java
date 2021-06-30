@@ -11,6 +11,8 @@ import com.jb.doa.CompaniesDBDAO;
 import com.jb.doa.CouponsDBDAO;
 import com.jb.doa.CustomerCouponDBDAO;
 import com.jb.doa.CustomerDBDAO;
+import com.jb.exception.CustomCouponSystemException;
+import com.jb.exception.ExceptionsMap;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -28,16 +30,17 @@ public class AdminFacade extends ClientFacade{
         customersDAO = new CustomerDBDAO();
     }
 
-    public boolean login(String email, String password) {
-        return EMAIL == email && PASSWORD == password;
+    public boolean login(String email, String password) throws CustomCouponSystemException {
+        if(! (EMAIL == email && PASSWORD == password)) {
+            throw new CustomCouponSystemException(ExceptionsMap.ERROR_LOGIN);
+        }
+        return true;
     }
 
-    public void addCompany(Company company) throws SQLException {
+    public void addCompany(Company company) throws SQLException, CustomCouponSystemException {
 
         if (companiesDAO.isCompanyNameEmailExist(company.getName(), company.getEmail()) ) {
-        //TODO
-            //Handle exception
-            return;
+            throw new CustomCouponSystemException(ExceptionsMap.ERROR_SAME_NAME_COMPANY);
         }
         this.companiesDAO.addCompany(company);
     }

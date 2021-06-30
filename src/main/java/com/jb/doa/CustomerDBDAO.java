@@ -27,6 +27,9 @@ public class CustomerDBDAO implements CustomersDAO {
     private final String QUERY_SELECT_ONE = "SELECT COUNT(*) FROM `bhp-g2-coup-sys-p2`.`customers` " +
             "WHERE `email` = ? AND `password` = ? ;" ;
 
+    private final String QUERY_SELECT_ID_BY_MAIL_AND_PASS = "SELECT `id` FROM `bhp-g2-coup-sys-p2`.`customers` " +
+            "WHERE `email` = ? AND `password` = ? ;" ;
+
     private final String QUERY_SELECT_ONE_BY_EMAIL = "SELECT COUNT(*) FROM `bhp-g2-coup-sys-p2`.`customers` WHERE `email` = ? ;" ;
 
     private final String QUERY_SELECT_ONE_BY_ID = "SELECT * FROM `bhp-g2-coup-sys-p2`.`customers` " +
@@ -38,7 +41,7 @@ public class CustomerDBDAO implements CustomersDAO {
             "WHERE `id` = ? ;";
 
     @Override
-    public boolean iscCustomerExists(String email, String password) throws SQLException {
+    public boolean isCustomerExists(String email, String password) throws SQLException {
         Map<Integer, Object> map = new HashMap<>();
         map.put(1,email);
         map.put(2,password);
@@ -119,5 +122,14 @@ public class CustomerDBDAO implements CustomersDAO {
         return (resultSet.getInt(1)) == 1;
     }
 
+    @Override
+    public int getIdCustomerByEmail(String email, String password) throws SQLException {
+        Map<Integer, Object> map = new HashMap<>();
+        map.put(1,email);
+        map.put(2,password);
+        ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_SELECT_ID_BY_MAIL_AND_PASS, map);
+        resultSet.next();
+        return resultSet.getInt(1);
+    }
 
 }

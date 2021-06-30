@@ -6,6 +6,7 @@ import com.jb.dao.CustomersDAO;
 import com.jb.doa.CompaniesDBDAO;
 import com.jb.doa.CouponsDBDAO;
 import com.jb.doa.CustomerDBDAO;
+import com.jb.exception.CustomCouponSystemException;
 
 import java.sql.SQLException;
 
@@ -21,7 +22,7 @@ public abstract class ClientFacade {
         couponsDAO = new CouponsDBDAO();
     }
 
-    public abstract boolean login(String email, String password) throws SQLException;
+    public abstract boolean login(String email, String password) throws SQLException, CustomCouponSystemException;
 
 
 }

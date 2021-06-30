@@ -38,7 +38,7 @@ public class TestCustomer {
         customerDAO.addCustomer(c3);
 
         System.out.println("is Dani@Din.mail.com,1234  exist? ");
-        System.out.println(customerDAO.iscCustomerExists(c1.getEmail(), c1.getPassword()));
+        System.out.println(customerDAO.isCustomerExists(c1.getEmail(), c1.getPassword()));
 
         //Get all customers
         System.out.println(ArtUtils.GET_ALL);

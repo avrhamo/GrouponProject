@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CustomersDAO {
 
-    public boolean iscCustomerExists(String email, String password) throws SQLException;
+    public boolean isCustomerExists(String email, String password) throws SQLException;
 
     public void addCustomer(Customer customer) throws SQLException;
 
@@ -21,4 +21,5 @@ public interface CustomersDAO {
 
     public boolean isEmailExist(String email) throws SQLException;
 
+    public int getIdCustomerByEmail(String email, String password)throws SQLException;
 }

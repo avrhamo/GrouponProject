@@ -8,8 +8,11 @@ import com.jb.dao.CouponsDAO;
 import com.jb.dao.CustomersCouponDAO;
 import com.jb.dao.CustomersDAO;
 import com.jb.doa.CustomerCouponDBDAO;
+import com.jb.exception.CustomCouponSystemException;
+import com.jb.exception.ExceptionsMap;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerFacade extends ClientFacade{
@@ -20,26 +23,35 @@ public class CustomerFacade extends ClientFacade{
         this.customerId = customerId;
     }
 
-    public CustomerFacade(CustomersDAO customersDAO) {
-        super();
+    public CustomerFacade() {
+        this.customerId = 0;
     }
 
-    public int getCompanyId() {
-        return customerId;
-    }
+//    public CustomerFacade(CustomersDAO customersDAO) {
+//        super();
+//    }
+//
+//    public int getCompanyId() {
+//        return customerId;
+//    }
+//
+//    public void setCompanyId(int customerId) {
+//        this.customerId = customerId;
+//    }
 
-    public void setCompanyId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public boolean login(String email, String password) {
-        return false;
+    public boolean login(String email, String password) throws SQLException, CustomCouponSystemException {
+        if(!customersDAO.isCustomerExists(email, password)) {
+            throw new CustomCouponSystemException(ExceptionsMap.ERROR_LOGIN);
+        }else {
+            this.customerId = customersDAO.getIdCustomerByEmail(email, password);
+            return true;
+        }
     }
 
     public void purchaseCoupon(Coupon coupon) throws SQLException {
         if (couponsDAO.isCouponValidToPurchase(coupon.getId()) ){
             couponsDAO.addCouponPurchase(customerId, coupon.getId());
-    }
+        }
     }
 
     public List<Coupon> getCustomerCoupons () throws SQLException, InterruptedException {
@@ -47,16 +59,30 @@ public class CustomerFacade extends ClientFacade{
         return couponsDAO.getAllCustomerCoupons(customerId);
     }
 
-    public List<Coupon> getCustomerCoupons (Category category) {
-        return null;
+    public List<Coupon> getCustomerCoupons (Category category) throws SQLException, InterruptedException {
+        List<Coupon> customerCoupons =  couponsDAO.getAllCustomerCoupons(customerId);
+        List<Coupon> customerCouponsAns = new ArrayList<>();
+        customerCoupons.forEach(coupon -> {
+            if(coupon.getCategoryId() == category.value){
+                customerCouponsAns.add(coupon);
+            }
+        });
+        return customerCouponsAns;
     }
 
-    public List<Coupon> getCustomerCoupons (double maxPrice) {
-        return null;
+    public List<Coupon> getCustomerCoupons (double maxPrice) throws SQLException, InterruptedException {
+        List<Coupon> customerCoupons =  couponsDAO.getAllCustomerCoupons(customerId);
+        List<Coupon> customerCouponsAns = new ArrayList<>();
+        customerCoupons.forEach(coupon -> {
+            if(coupon.getPrice() < maxPrice){
+                customerCouponsAns.add(coupon);
+            }
+        });
+        return customerCouponsAns;
     }
 
-    public Customer getCustomerDetails(Customer customer) {
-        return null;
+    public Customer getCustomerDetails() throws SQLException {
+        return customersDAO.getOneCustomer(customerId);
     }
 
 }
