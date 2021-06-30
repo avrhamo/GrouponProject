@@ -4,7 +4,10 @@ import com.jb.beans.Category;
 import com.jb.beans.Coupon;
 import com.jb.beans.Customer;
 import com.jb.dao.CompaniesDAO;
+import com.jb.dao.CouponsDAO;
+import com.jb.dao.CustomersCouponDAO;
 import com.jb.dao.CustomersDAO;
+import com.jb.doa.CustomerCouponDBDAO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -39,15 +42,16 @@ public class CustomerFacade extends ClientFacade{
     }
     }
 
-    public List<Coupon> getCustomerCoupon () {
+    public List<Coupon> getCustomerCoupons () throws SQLException, InterruptedException {
+
+        return couponsDAO.getAllCustomerCoupons(customerId);
+    }
+
+    public List<Coupon> getCustomerCoupons (Category category) {
         return null;
     }
 
-    public List<Coupon> getCustomerCoupon (Category category) {
-        return null;
-    }
-
-    public List<Coupon> getCustomerCoupon (double maxPrice) {
+    public List<Coupon> getCustomerCoupons (double maxPrice) {
         return null;
     }
 

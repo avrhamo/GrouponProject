@@ -32,9 +32,8 @@ public class TestCustomerFacade {
 
         customerFacade.purchaseCoupon(coupon4);
         customerFacade.purchaseCoupon(coupon5);
-        CouponsDAO couponsDAO = new CouponsDBDAO();
-        couponsDAO.getAllCoupons().forEach(System.out::println);
 
+        customerFacade.getCustomerCoupons().forEach(System.out::println);
 
 
     }

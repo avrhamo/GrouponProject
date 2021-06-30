@@ -32,4 +32,6 @@ public interface CouponsDAO {
     public List<Coupon> getAllCouponsUnderMaxPrice(int companyId, double maxPrice) throws SQLException, InterruptedException;
 
     public boolean isCouponValidToPurchase(int couponId) throws SQLException;
+
+    public List<Coupon> getAllCustomerCoupons(int customerId) throws SQLException, InterruptedException;
 }
