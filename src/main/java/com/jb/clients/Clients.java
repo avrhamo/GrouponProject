@@ -1,6 +1,5 @@
 package com.jb.clients;
 
-import com.jb.beans.Company;
 import com.jb.exception.CustomCouponSystemException;
 import com.jb.exception.ExceptionsMap;
 import com.jb.facade.AdminFacade;
@@ -14,24 +13,25 @@ public class Clients {
 
     private static Clients loginManager = null;
 
-    private Clients() {    }
+    private Clients() {
+    }
 
     public static Clients getInstance() {
-        if(loginManager == null){
+        if (loginManager == null) {
             loginManager = new Clients();
         }
         return loginManager;
     }
 
     public ClientFacade login(String email, String password, int clientType) throws CustomCouponSystemException, SQLException {
-        switch (clientType){
+        switch (clientType) {
             case 1:
                 AdminFacade adminFacade = new AdminFacade();
                 adminFacade.login(email, password);
                 return adminFacade;
 
             case 2:
-                CompanyFacade companyFacade= new CompanyFacade();
+                CompanyFacade companyFacade = new CompanyFacade();
                 companyFacade.login(email, password);
                 return companyFacade;
 

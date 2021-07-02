@@ -1,4 +1,4 @@
-package com.jb.playground;
+package com.jb.test;
 
 import com.jb.beans.Company;
 import com.jb.beans.Coupon;
@@ -13,7 +13,7 @@ import com.jb.utils.ArtUtils;
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class Test {
+public class TestCreateDB {
 
 //    public static void main(String[] args) throws SQLException {
 //        runTest();

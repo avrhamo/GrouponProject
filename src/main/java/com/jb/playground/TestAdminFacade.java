@@ -14,7 +14,6 @@ public class TestAdminFacade {
     public static void main(String[] args) throws SQLException, InterruptedException, CustomCouponSystemException {
         //Drop and Create DB
         //DatabaseManager.DropAndCreate();
-        Test.runTest();
         System.out.println("******** S T A R T *********");
         AdminFacade adminFacade = new AdminFacade();
 
