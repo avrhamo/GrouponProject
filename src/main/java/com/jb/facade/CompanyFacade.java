@@ -5,9 +5,13 @@ import com.jb.beans.Coupon;
 import com.jb.dao.CompaniesDAO;
 import com.jb.dao.CustomersCouponDAO;
 import com.jb.doa.CustomerCouponDBDAO;
+import com.jb.exception.CustomCouponSystemException;
+import com.jb.exception.ExceptionsMap;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import static com.jb.exception.ExceptionsMap.*;
 
 public class CompanyFacade extends ClientFacade{
 
@@ -21,17 +25,18 @@ public class CompanyFacade extends ClientFacade{
         super();
     }
 
+    public CompanyFacade() {    }
+
     public boolean login(String email, String password) throws SQLException {
         return companiesDAO.isCompanyExists(email, password);
     }
 
-    public void addCoupon(Coupon coupon) throws SQLException {
+    public void addCoupon(Coupon coupon) throws SQLException, CustomCouponSystemException {
         if (!couponsDAO.isCouponNameExistUnderCompany(coupon.getCompanyId(), coupon.getTitle())) {
             couponsDAO.addCoupon(coupon);
         }else {
-            //TODO handle exception
+            throw new CustomCouponSystemException(ERROR_CANNOT_ADD_SAME_COUPON_NAME);
         }
-
     }
 
     public int getCompanyId() throws SQLException  {
@@ -42,13 +47,11 @@ public class CompanyFacade extends ClientFacade{
         this.companyId = companyId;
     }
 
-    public void updateCoupon(Coupon coupon)  throws SQLException {
+    public void updateCoupon(Coupon coupon) throws SQLException, CustomCouponSystemException {
         Coupon DBCoupon = couponsDAO.getOneCoupon(coupon.getId());
-        if(coupon.getCompanyId() == DBCoupon.getCompanyId() && coupon.getId() == DBCoupon.getId()) {
+        if(companyId == DBCoupon.getCompanyId() && coupon.getId() == DBCoupon.getId()) {
             couponsDAO.updateCoupon(coupon);
-        }else {
-            //TODO handle exception
-        }
+        }else throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_COUPON_CODE);
     }
 
     public void deleteCoupon(int couponId)  throws SQLException {

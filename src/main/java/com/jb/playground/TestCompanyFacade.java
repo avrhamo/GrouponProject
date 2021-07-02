@@ -2,6 +2,7 @@ package com.jb.playground;
 
 import com.jb.beans.Coupon;
 import com.jb.db.DatabaseManager;
+import com.jb.exception.CustomCouponSystemException;
 import com.jb.facade.CompanyFacade;
 
 import java.sql.Date;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class TestCompanyFacade {
 
-    public static void main(String[] args) throws SQLException, InterruptedException {
+    public static void main(String[] args) throws SQLException, InterruptedException, CustomCouponSystemException {
         //Drop and Create DB
         DatabaseManager.DropAndCreate();
         //TestCompany.TestCompanyDB();
