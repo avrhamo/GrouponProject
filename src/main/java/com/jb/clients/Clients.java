@@ -24,24 +24,31 @@ public class Clients {
     }
 
     public ClientFacade login(String email, String password, int clientType) throws CustomCouponSystemException, SQLException {
-        switch (clientType) {
-            case 1:
-                AdminFacade adminFacade = new AdminFacade();
-                adminFacade.login(email, password);
-                return adminFacade;
+        try {
+            switch (clientType) {
+                case 1:
+                    AdminFacade adminFacade = new AdminFacade();
+                    adminFacade.login(email, password);
+                    return adminFacade;
 
-            case 2:
-                CompanyFacade companyFacade = new CompanyFacade();
-                companyFacade.login(email, password);
-                return companyFacade;
+                case 2:
+                    CompanyFacade companyFacade = new CompanyFacade();
+                    companyFacade.login(email, password);
+                    return companyFacade;
 
-            case 3:
-                CustomerFacade customerFacade = new CustomerFacade();
-                customerFacade.login(email, password);
-                return customerFacade;
+                case 3:
+                    CustomerFacade customerFacade = new CustomerFacade();
+                    customerFacade.login(email, password);
+                    return customerFacade;
 
-            default:
-                throw new CustomCouponSystemException(ExceptionsMap.ERROR_LOGIN);
+                default:
+                    throw new CustomCouponSystemException(ExceptionsMap.ERROR_LOGIN);
+            }
         }
+        catch(CustomCouponSystemException ex) {
+            System.err.println(ex.getMessage());
+            return null;
+        }
+
     }
 }

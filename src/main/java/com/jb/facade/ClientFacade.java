@@ -22,6 +22,12 @@ public abstract class ClientFacade {
         couponsDAO = new CouponsDBDAO();
     }
 
+    public ClientFacade(String email, String password, int ClientType) {
+        companiesDAO = new CompaniesDBDAO();
+        customersDAO = new CustomerDBDAO();
+        couponsDAO = new CouponsDBDAO();
+    }
+
     public abstract boolean login(String email, String password) throws SQLException, CustomCouponSystemException;
 
 
