@@ -34,35 +34,49 @@ public class AdminFacade extends ClientFacade{
     }
 
     public boolean login(String email, String password) throws CustomCouponSystemException {
-        if(! (EMAIL == email && PASSWORD == password)) {
-            throw new CustomCouponSystemException(ERROR_LOGIN);
+        try {
+            if(! (EMAIL == email && PASSWORD == password)) {
+                throw new CustomCouponSystemException(ERROR_LOGIN);
+            }
+            return true;
+        }catch (CustomCouponSystemException ex) {
+            System.err.println(ex.getMessage());
+            return false;
         }
-        return true;
     }
 
     public void addCompany(Company company) throws SQLException, CustomCouponSystemException {
-
-        if (companiesDAO.isCompanyNameEmailExist(company.getName(), company.getEmail()) ) {
-            throw new CustomCouponSystemException(ERROR_SAME_NAME_COMPANY);
+        try{
+            if (companiesDAO.isCompanyNameEmailExist(company.getName(), company.getEmail()) ) {
+                throw new CustomCouponSystemException(ERROR_SAME_NAME_COMPANY);
+            }
+            this.companiesDAO.addCompany(company);
+        }catch (CustomCouponSystemException ex) {
+            System.err.println(ex.getMessage());
         }
-        this.companiesDAO.addCompany(company);
     }
 
     public void updateCompany(Company company) throws SQLException , CustomCouponSystemException {
-        if (companiesDAO.isCompanyExists(company.getEmail(),company.getPassword())) {
-            Company companyFromDB  = companiesDAO.getOneCompany(company.getId());
-            if (companyFromDB.getId() == company.getId() || companyFromDB.getName() != company.getName()) {
-                companiesDAO.updateCompany(company);
-            }
-        }else throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_COMPANY_NAME);
+        try{
+            //if (companiesDAO.isCompanyExists(company.getEmail(),company.getPassword())) {
+                Company companyFromDB  = companiesDAO.getOneCompany(company.getId());
+                if (companyFromDB.getId() == company.getId() && companyFromDB.getName() != company.getName()) {
+                    companiesDAO.updateCompany(company);
+             //   }
+            }else throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_COMPANY_NAME);
+        }catch(CustomCouponSystemException ex ){
+            System.err.println(ex.getMessage());
+        }catch (SQLException ex) {
+            System.err.println(ERROR_CANNOT_UPDATE_COMPANY_NAME.getMessage());
+        }
     }
 
     public void deleteCompany(int companyId) throws SQLException, InterruptedException {
         List<Coupon> companyCoupons = couponsDAO.getCompanyAllCoupons(companyId);
         companyCoupons.forEach(coupon -> {
             try {
-                customerCouponDBDAO.DeleteByCouponId(coupon.getId());
-                couponsDAO.deleteCoupon(coupon.getId());
+                customerCouponDBDAO.DeleteByCouponId(coupon.getCompanyId());
+                couponsDAO.deleteCompanyCoupon(coupon.getCompanyId());
                 companiesDAO.deleteCompany(companyId);
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -79,15 +93,25 @@ public class AdminFacade extends ClientFacade{
     }
 
     public void addCustomer(Customer customer) throws SQLException, CustomCouponSystemException {
-        if (!customersDAO.isEmailExist(customer.getEmail())) {
-            customersDAO.addCustomer(customer);
-        }else throw new CustomCouponSystemException(ERROR_SAME_EMAIL_CUSTOMER);
+        try {
+            if (!customersDAO.isEmailExist(customer.getEmail())) {
+                customersDAO.addCustomer(customer);
+            }else throw new CustomCouponSystemException(ERROR_SAME_EMAIL_CUSTOMER);
+
+        }catch (CustomCouponSystemException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
     public void updateCustomer(Customer customer) throws SQLException, CustomCouponSystemException {
-        if(customersDAO.getOneCustomer(customer.getId()).getId() == customer.getId() ) {
-            customersDAO.updateCustomer(customer);
-        }else throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_CUSTOMER_CODE);
+        try {
+            if(customersDAO.getOneCustomer(customer.getId()).getId() == customer.getId() ) {
+                customersDAO.updateCustomer(customer);
+            }else throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_CUSTOMER_CODE);
+
+        }catch (CustomCouponSystemException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
     public void deleteCustomer(Customer customer) throws SQLException {

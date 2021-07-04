@@ -20,6 +20,7 @@ public class CouponsDBDAO implements CouponsDAO {
             "VALUES (?, (SELECT `id` FROM `bhp-g2-coup-sys-p2`.`companies` WHERE id = ?), (SELECT `id` FROM `bhp-g2-coup-sys-p2`.`categories` WHERE id = ?), ?, ?, ?, ?, ?, ?, ?) ;";
     public static final String QUERY_UPDATE_COUPON_BY_ID = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET `title` = ?, `description` = ?, `start_date` = ?, `end_date` = ?, `amount` = ?, `price` = ?, `image` = ? WHERE (`id` = ?); ";
     public static final String QUERY_DELETE_COUPON = "DELETE FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `id` = ? ;";
+    public static final String QUERY_DELETE_COMPANY_COUPON = "DELETE FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `company_id` = ? ;";
     public static final String QUERY_GET_ALL_COUPONS = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons`";
     public static final String QUERY_GET_ALL_COUPONS_UNDER_PRICE = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `company_id` = ? AND `price` <= ? ;";
     public static final String QUERY_GET_ALL_COUPONS_BY_CATEGORY = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `company_id` = ? AND `category_id` = ?";
@@ -67,6 +68,13 @@ public class CouponsDBDAO implements CouponsDAO {
         Map<Integer, Object> map = new HashMap<>();
         map.put(1, couponId);
         DBUtils.runQuery(QUERY_DELETE_COUPON, map);
+    }
+
+    @Override
+    public void deleteCompanyCoupon(int couponId) throws SQLException {
+        Map<Integer, Object> map = new HashMap<>();
+        map.put(1, couponId);
+        DBUtils.runQuery(QUERY_DELETE_COMPANY_COUPON, map);
     }
 
     @Override

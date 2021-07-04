@@ -15,6 +15,8 @@ public interface CouponsDAO {
 
     public void deleteCoupon(int couponId) throws SQLException;
 
+    public void deleteCompanyCoupon(int couponId) throws SQLException;
+
     public List<Coupon> getAllCoupons() throws SQLException, InterruptedException;
 
     public List<Coupon> getCompanyAllCoupons(int companyId) throws SQLException, InterruptedException;
