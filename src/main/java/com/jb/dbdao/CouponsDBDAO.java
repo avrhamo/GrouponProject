@@ -1,6 +1,5 @@
-package com.jb.doa;
+package com.jb.dbdao;
 
-import com.jb.beans.Company;
 import com.jb.beans.Coupon;
 import com.jb.dao.CouponsDAO;
 import com.jb.dao.CustomersCouponDAO;
@@ -26,7 +25,7 @@ public class CouponsDBDAO implements CouponsDAO {
     public static final String QUERY_GET_ALL_COUPONS_BY_CATEGORY = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `company_id` = ? AND `category_id` = ?";
     public static final String QUERY_GET_ALL_COMPANY_COUPONS = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `company_id` = ?";
     public static final String QUERY_GET_ONE_COUPON_BY_ID = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `id` = ? ;";
-    public static final String QUERY_UPDATE_PURCHASE = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET `amount` = (`amount` - 1) WHERE (`id` = ?) AND (`amount` > 0) AND (`end_date` > ? ) ; ";
+    public static final String QUERY_UPDATE_PURCHASE = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET `amount` = (`amount` - 1) WHERE (`id` = ?) ; ";
     public static final String QUERY_DELETE_PURCHASE = "UPDATE `bhp-g2-coup-sys-p2`.`coupons` SET `amount` = (`amount` + 1) WHERE (`id` = ?); ";
     public static final String QUERY_SELECT_COUPON_NAME_BY_COMPANY_ID = " SELECT COUNT(*) FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `company_id` = ? AND `title` = ? ; ";
     public static final String QUERY_SELECT_CHECK_IF_VALID_TO_BY = " SELECT COUNT(*) FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE `id` = ? AND (`amount` > 0) AND (`end_date` > ? ) ; ";
@@ -165,7 +164,6 @@ public class CouponsDBDAO implements CouponsDAO {
         if (!isCustomerOwnCoupon) {
             Map<Integer, Object> map = new HashMap<>();
             map.put(1, couponId);
-            map.put(2, Date.valueOf(LocalDate.now()).toString());
             DBUtils.runQuery(QUERY_UPDATE_PURCHASE, map);
             customersCouponsDBDAO.InsertCustomersCoupons(customerId, couponId);
         }

@@ -1,10 +1,8 @@
 package com.jb.playground;
 
 import com.jb.beans.Company;
-import com.jb.beans.Company;
 import com.jb.dao.CompaniesDAO;
-import com.jb.dao.CompaniesDAO;
-import com.jb.doa.CompaniesDBDAO;
+import com.jb.dbdao.CompaniesDBDAO;
 import com.jb.db.DatabaseManager;
 import com.jb.utils.ArtUtils;
 

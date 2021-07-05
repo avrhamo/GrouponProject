@@ -4,9 +4,8 @@ import com.jb.beans.Company;
 import com.jb.beans.Coupon;
 import com.jb.dao.CompaniesDAO;
 import com.jb.dao.CustomersCouponDAO;
-import com.jb.doa.CustomerCouponDBDAO;
+import com.jb.dbdao.CustomerCouponDBDAO;
 import com.jb.exception.CustomCouponSystemException;
-import com.jb.exception.ExceptionsMap;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -27,15 +26,28 @@ public class CompanyFacade extends ClientFacade{
 
     public CompanyFacade() {    }
 
-    public boolean login(String email, String password) throws SQLException {
-        return companiesDAO.isCompanyExists(email, password);
+    public boolean login(String email, String password) throws CustomCouponSystemException {
+        try {
+            if (!companiesDAO.isCompanyExists(email, password)) {
+                throw new CustomCouponSystemException(ERROR_LOGIN);
+            }
+            this.companyId = companiesDAO.getOneCompanyByEmailAndPassword(email, password).getId();
+            return true;
+        } catch (CustomCouponSystemException | SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 
     public void addCoupon(Coupon coupon) throws SQLException, CustomCouponSystemException {
-        if (!couponsDAO.isCouponNameExistUnderCompany(coupon.getCompanyId(), coupon.getTitle())) {
-            couponsDAO.addCoupon(coupon);
-        }else {
-            throw new CustomCouponSystemException(ERROR_CANNOT_ADD_SAME_COUPON_NAME);
+        try{
+            if (!couponsDAO.isCouponNameExistUnderCompany(coupon.getCompanyId(), coupon.getTitle())) {
+                couponsDAO.addCoupon(coupon);
+            }else {
+                throw new CustomCouponSystemException(ERROR_CANNOT_ADD_SAME_COUPON_NAME);
+            }
+        }catch (CustomCouponSystemException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 

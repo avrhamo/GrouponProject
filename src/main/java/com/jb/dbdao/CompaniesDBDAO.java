@@ -1,4 +1,4 @@
-package com.jb.doa;
+package com.jb.dbdao;
 
 import com.jb.beans.Company;
 import com.jb.dao.CompaniesDAO;
@@ -14,7 +14,7 @@ import java.util.*;
 public class CompaniesDBDAO implements CompaniesDAO {
 
     private final String QUERY_INSERT_COMPANY = "INSERT INTO `bhp-g2-coup-sys-p2`.`companies` " +
-            "(`id`, `name`, `email`, `password`) VALUES (?, ?, ?, ?);";
+            "(`name`, `email`, `password`) VALUES (?, ?, ?);";
 
     private final String QUERY_UPDATE_COMPANY = "UPDATE `bhp-g2-coup-sys-p2`.`companies` SET `name` = ?, `email` = ?, `password` = ? WHERE (`id` = ?);";
 
@@ -22,8 +22,10 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
     private final String QUERY_SELECT_ONE_BY_ID = "SELECT * FROM `bhp-g2-coup-sys-p2`.`companies` " +
             "WHERE `id` = ? ;";
-    private final String QUERY_SELECT_ONE_BY_NAME_AND_MAIL = "SELECT * FROM `bhp-g2-couaddp-sys-p2`.`companies` " +
+    private final String QUERY_SELECT_ONE_BY_NAME_AND_MAIL = "SELECT * FROM `bhp-g2-coup-sys-p2`.`companies` " +
             "WHERE `name` = ? AND `email` = ? ;";
+    private final String QUERY_SELECT_ONE_BY_MAIL_AND_PASS = "SELECT * FROM `bhp-g2-coup-sys-p2`.`companies` " +
+            "WHERE `email` = ? AND `password` = ? ;";
     private final String QUERY_SELECT_BY_NAME_OR_EMAIL = "SELECT count(*) FROM `bhp-g2-coup-sys-p2`.`companies` " +
             "WHERE `name` = ? OR `email` = ? ;";
 
@@ -45,10 +47,10 @@ public class CompaniesDBDAO implements CompaniesDAO {
     @Override
     public void addCompany(Company company) throws SQLException {
         Map<Integer, Object> map = new HashMap<>();
-        map.put(1, company.getId());
-        map.put(2, company.getName());
-        map.put(3, company.getEmail());
-        map.put(4, company.getPassword());
+//        map.put(1, company.getId());
+        map.put(1, company.getName());
+        map.put(2, company.getEmail());
+        map.put(3, company.getPassword());
         DBUtils.runQuery(QUERY_INSERT_COMPANY,map);
     }
 
@@ -110,6 +112,17 @@ public class CompaniesDBDAO implements CompaniesDAO {
         map.put(1,name);
         map.put(2,email);
         ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_SELECT_ONE_BY_NAME_AND_MAIL,map);
+        resultSet.next();
+        return new Company(resultSet.getInt(1),resultSet.getString(2),
+                resultSet.getString(3),resultSet.getString(4),null);
+    }
+
+    public Company getOneCompanyByEmailAndPassword(String email, String password) throws SQLException {
+
+        Map<Integer, Object> map = new HashMap<>();
+        map.put(1,email);
+        map.put(2,password);
+        ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_SELECT_ONE_BY_MAIL_AND_PASS,map);
         resultSet.next();
         return new Company(resultSet.getInt(1),resultSet.getString(2),
                 resultSet.getString(3),resultSet.getString(4),null);

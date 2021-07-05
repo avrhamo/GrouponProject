@@ -7,8 +7,7 @@ import com.jb.dao.CompaniesDAO;
 import com.jb.dao.CouponsDAO;
 import com.jb.dao.CustomersDAO;
 import com.jb.db.DatabaseManager;
-import com.jb.doa.*;
-import com.jb.utils.ArtUtils;
+import com.jb.dbdao.*;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -39,10 +38,10 @@ public class TestCreateDB {
         customerCouponDBDAO.InsertCustomersCoupons(9,6);
         customerCouponDBDAO.InsertCustomersCoupons(7,8);
         customerCouponDBDAO.InsertCustomersCoupons(8,3);
-        customerCouponDBDAO.InsertCustomersCoupons(3,7);
+        customerCouponDBDAO.InsertCustomersCoupons(1,7);
         customerCouponDBDAO.InsertCustomersCoupons(4,9);
         customerCouponDBDAO.InsertCustomersCoupons(9,10);
-        customerCouponDBDAO.InsertCustomersCoupons(7,3);
+        customerCouponDBDAO.InsertCustomersCoupons(1,3);
         customerCouponDBDAO.InsertCustomersCoupons(10,3);
 
     }

@@ -1,6 +1,5 @@
 package com.jb.playground;
 
-import com.jb.beans.Category;
 import com.jb.beans.Company;
 import com.jb.beans.Coupon;
 import com.jb.beans.Customer;
@@ -8,9 +7,8 @@ import com.jb.dao.CompaniesDAO;
 import com.jb.dao.CouponsDAO;
 import com.jb.dao.CustomersDAO;
 import com.jb.db.DatabaseManager;
-import com.jb.doa.*;
+import com.jb.dbdao.*;
 import com.jb.utils.ArtUtils;
-import com.jb.utils.DBUtils;
 
 import java.sql.Date;
 import java.sql.SQLException;

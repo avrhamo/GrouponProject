@@ -1,12 +1,9 @@
 package com.jb.playground;
 
-import com.jb.beans.Company;
 import com.jb.beans.Customer;
-import com.jb.dao.CompaniesDAO;
 import com.jb.dao.CustomersDAO;
 import com.jb.db.DatabaseManager;
-import com.jb.doa.CompaniesDBDAO;
-import com.jb.doa.CustomerDBDAO;
+import com.jb.dbdao.CustomerDBDAO;
 import com.jb.utils.ArtUtils;
 
 import java.sql.SQLException;

@@ -2,9 +2,7 @@ package com.jb.playground;
 
 import com.jb.beans.Category;
 import com.jb.beans.Coupon;
-import com.jb.dao.CouponsDAO;
 import com.jb.db.DatabaseManager;
-import com.jb.doa.CouponsDBDAO;
 import com.jb.exception.CustomCouponSystemException;
 import com.jb.facade.CustomerFacade;
 

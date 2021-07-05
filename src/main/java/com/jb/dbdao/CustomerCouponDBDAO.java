@@ -1,4 +1,4 @@
-package com.jb.doa;
+package com.jb.dbdao;
 import com.jb.dao.CustomersCouponDAO;
 import com.jb.utils.DBUtils;
 
@@ -54,6 +54,5 @@ public class CustomerCouponDBDAO implements CustomersCouponDAO {
         map.put(1, couponId);
         DBUtils.runQuery(DELETE_ALL_COUPONS_BY_CUST_ID, map);
     }
-
 
 }

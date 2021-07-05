@@ -3,9 +3,9 @@ package com.jb.facade;
 import com.jb.dao.CompaniesDAO;
 import com.jb.dao.CouponsDAO;
 import com.jb.dao.CustomersDAO;
-import com.jb.doa.CompaniesDBDAO;
-import com.jb.doa.CouponsDBDAO;
-import com.jb.doa.CustomerDBDAO;
+import com.jb.dbdao.CompaniesDBDAO;
+import com.jb.dbdao.CouponsDBDAO;
+import com.jb.dbdao.CustomerDBDAO;
 import com.jb.exception.CustomCouponSystemException;
 
 import java.sql.SQLException;

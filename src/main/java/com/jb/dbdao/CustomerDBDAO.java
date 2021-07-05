@@ -1,6 +1,5 @@
-package com.jb.doa;
+package com.jb.dbdao;
 
-import com.jb.beans.Company;
 import com.jb.beans.Customer;
 import com.jb.dao.CustomersDAO;
 import com.jb.db.ConnectionPool;

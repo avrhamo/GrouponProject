@@ -3,13 +3,9 @@ package com.jb.facade;
 import com.jb.beans.Category;
 import com.jb.beans.Coupon;
 import com.jb.beans.Customer;
-import com.jb.dao.CompaniesDAO;
-import com.jb.dao.CouponsDAO;
 import com.jb.dao.CustomersCouponDAO;
-import com.jb.dao.CustomersDAO;
-import com.jb.doa.CustomerCouponDBDAO;
+import com.jb.dbdao.CustomerCouponDBDAO;
 import com.jb.exception.CustomCouponSystemException;
-import com.jb.exception.ExceptionsMap;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,9 +35,22 @@ public class CustomerFacade extends ClientFacade{
     }
 
     public void purchaseCoupon(Coupon coupon) throws SQLException, CustomCouponSystemException {
-        if (couponsDAO.isCouponValidToPurchase(coupon.getId()) ){
-            couponsDAO.addCouponPurchase(customerId, coupon.getId());
-        }else throw new CustomCouponSystemException(ERROR_COUPON_SOLD_OUT_OR_EXPIRED);
+        try{
+            CustomersCouponDAO customersCouponsDBDAAO = new CustomerCouponDBDAO();
+            boolean isCustomerOwnCoupon = customersCouponsDBDAAO.isExistCustomersCoupons(customerId, coupon.getId());
+            boolean isCouponValidToBuy = couponsDAO.isCouponValidToPurchase(coupon.getId());
+
+            if ( isCouponValidToBuy && !isCustomerOwnCoupon){
+                couponsDAO.addCouponPurchase(customerId, coupon.getId());
+            }else if(!isCouponValidToBuy) {
+                throw new CustomCouponSystemException(ERROR_COUPON_SOLD_OUT_OR_EXPIRED);
+            }else {
+                throw new CustomCouponSystemException(ERROR_CANNOT_BUY_THE_SAME_COUPON);
+            }
+
+        }catch (CustomCouponSystemException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public List<Coupon> getCustomerCoupons () throws SQLException, InterruptedException {

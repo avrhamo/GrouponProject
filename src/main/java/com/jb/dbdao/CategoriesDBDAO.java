@@ -1,4 +1,4 @@
-package com.jb.doa;
+package com.jb.dbdao;
 
 import com.jb.beans.Category;
 import com.jb.utils.DBUtils;

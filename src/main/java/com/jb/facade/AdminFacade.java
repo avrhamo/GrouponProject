@@ -3,70 +3,62 @@ package com.jb.facade;
 import com.jb.beans.Company;
 import com.jb.beans.Coupon;
 import com.jb.beans.Customer;
-import com.jb.dao.CompaniesDAO;
-import com.jb.dao.CouponsDAO;
 import com.jb.dao.CustomersCouponDAO;
-import com.jb.dao.CustomersDAO;
-import com.jb.doa.CompaniesDBDAO;
-import com.jb.doa.CouponsDBDAO;
-import com.jb.doa.CustomerCouponDBDAO;
-import com.jb.doa.CustomerDBDAO;
+import com.jb.dbdao.CompaniesDBDAO;
+import com.jb.dbdao.CouponsDBDAO;
+import com.jb.dbdao.CustomerCouponDBDAO;
+import com.jb.dbdao.CustomerDBDAO;
 import com.jb.exception.CustomCouponSystemException;
-import com.jb.exception.ExceptionsMap;
-import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 
 import java.sql.SQLException;
 import java.util.List;
 
 import static com.jb.exception.ExceptionsMap.*;
 
-public class AdminFacade extends ClientFacade{
+public class AdminFacade extends ClientFacade {
 
     private final String EMAIL = "admin@admin.com";
     private final String PASSWORD = "admin";
-    private CustomersCouponDAO customerCouponDBDAO= new CustomerCouponDBDAO();
+    private CustomersCouponDAO customerCouponDBDAO = new CustomerCouponDBDAO();
 
     public AdminFacade() {
         super();
-        companiesDAO = new CompaniesDBDAO();
-        couponsDAO = new CouponsDBDAO();
-        customersDAO = new CustomerDBDAO();
     }
 
     public boolean login(String email, String password) throws CustomCouponSystemException {
         try {
-            if(! (EMAIL == email && PASSWORD == password)) {
+            if (!(EMAIL == email && PASSWORD == password)) {
                 throw new CustomCouponSystemException(ERROR_LOGIN);
             }
             return true;
-        }catch (CustomCouponSystemException ex) {
-            System.err.println(ex.getMessage());
+        } catch (CustomCouponSystemException ex) {
+            System.out.println(ex.getMessage());
             return false;
         }
     }
 
     public void addCompany(Company company) throws SQLException, CustomCouponSystemException {
-        try{
-            if (companiesDAO.isCompanyNameEmailExist(company.getName(), company.getEmail()) ) {
+        try {
+            if (companiesDAO.isCompanyNameEmailExist(company.getName(), company.getEmail())) {
                 throw new CustomCouponSystemException(ERROR_SAME_NAME_COMPANY);
             }
             this.companiesDAO.addCompany(company);
-        }catch (CustomCouponSystemException ex) {
+        } catch (CustomCouponSystemException ex) {
             System.err.println(ex.getMessage());
         }
     }
 
-    public void updateCompany(Company company) throws SQLException , CustomCouponSystemException {
-        try{
+    public void updateCompany(Company company) throws SQLException, CustomCouponSystemException {
+        try {
             //if (companiesDAO.isCompanyExists(company.getEmail(),company.getPassword())) {
-                Company companyFromDB  = companiesDAO.getOneCompany(company.getId());
-                if (companyFromDB.getId() == company.getId() && companyFromDB.getName() != company.getName()) {
-                    companiesDAO.updateCompany(company);
-             //   }
-            }else throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_COMPANY_NAME);
-        }catch(CustomCouponSystemException ex ){
+            Company companyFromDB = companiesDAO.getOneCompany(company.getId());
+            if (companyFromDB.getId() == company.getId() && companyFromDB.getName() != company.getName()) {
+                companiesDAO.updateCompany(company);
+                //   }
+            } else throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_COMPANY_NAME);
+        } catch (CustomCouponSystemException ex) {
             System.err.println(ex.getMessage());
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ERROR_CANNOT_UPDATE_COMPANY_NAME.getMessage());
         }
     }
@@ -76,15 +68,15 @@ public class AdminFacade extends ClientFacade{
         companyCoupons.forEach(coupon -> {
             try {
                 customerCouponDBDAO.DeleteByCouponId(coupon.getId());
-                    couponsDAO.deleteCoupon(coupon.getId());
+                couponsDAO.deleteCoupon(coupon.getId());
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         });
         try {
             companiesDAO.deleteCompany(companyId);
-        }catch (SQLException ex) {
-            System.err.println(ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
 
     }
@@ -101,20 +93,20 @@ public class AdminFacade extends ClientFacade{
         try {
             if (!customersDAO.isEmailExist(customer.getEmail())) {
                 customersDAO.addCustomer(customer);
-            }else throw new CustomCouponSystemException(ERROR_SAME_EMAIL_CUSTOMER);
+            } else throw new CustomCouponSystemException(ERROR_SAME_EMAIL_CUSTOMER);
 
-        }catch (CustomCouponSystemException ex) {
+        } catch (CustomCouponSystemException ex) {
             System.err.println(ex.getMessage());
         }
     }
 
     public void updateCustomer(Customer customer) throws SQLException, CustomCouponSystemException {
         try {
-            if(customersDAO.getOneCustomer(customer.getId()).getId() == customer.getId() ) {
+            if (customersDAO.getOneCustomer(customer.getId()).getId() == customer.getId()) {
                 customersDAO.updateCustomer(customer);
-            }else throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_CUSTOMER_CODE);
+            } else throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_CUSTOMER_CODE);
 
-        }catch (CustomCouponSystemException ex) {
+        } catch (CustomCouponSystemException ex) {
             System.err.println(ex.getMessage());
         }
     }

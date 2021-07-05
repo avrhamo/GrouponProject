@@ -9,34 +9,34 @@ import com.jb.facade.CustomerFacade;
 
 import java.sql.SQLException;
 
-public class Clients {
+public class LoginManager {
 
-    private static Clients loginManager = null;
+    private static LoginManager loginManager = null;
 
-    private Clients() {
+    private LoginManager() {
     }
 
-    public static Clients getInstance() {
+    public static LoginManager getInstance() {
         if (loginManager == null) {
-            loginManager = new Clients();
+            loginManager = new LoginManager();
         }
         return loginManager;
     }
 
-    public ClientFacade login(String email, String password, int clientType) throws CustomCouponSystemException, SQLException {
+    public ClientFacade login(String email, String password, ClientType clientType) throws CustomCouponSystemException, SQLException {
         try {
             switch (clientType) {
-                case 1:
+                case ADMIN:
                     AdminFacade adminFacade = new AdminFacade();
                     adminFacade.login(email, password);
                     return adminFacade;
 
-                case 2:
+                case COMPANY:
                     CompanyFacade companyFacade = new CompanyFacade();
                     companyFacade.login(email, password);
                     return companyFacade;
 
-                case 3:
+                case CUSTOMER:
                     CustomerFacade customerFacade = new CustomerFacade();
                     customerFacade.login(email, password);
                     return customerFacade;
@@ -46,7 +46,7 @@ public class Clients {
             }
         }
         catch(CustomCouponSystemException ex) {
-            System.err.println(ex.getMessage());
+            System.out.println(ex.getMessage());
             return null;
         }
 
