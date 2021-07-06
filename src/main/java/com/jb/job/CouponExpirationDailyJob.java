@@ -15,9 +15,9 @@ public class CouponExpirationDailyJob implements Runnable{
     @Override
     public void run() {
 
-        while (!quit) {
+        while (true) {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(5000);
                 couponsDAO.getExpiredCoupons().forEach(coupon -> {
                     try {
                         couponsDAO.deleteCoupon(coupon.getId());

@@ -21,7 +21,6 @@ public class DBUtils {
             System.out.println(e.getMessage());
         }
         finally {
-            //STEP 5 - Close Connection to DB
             ConnectionPool.getInstance().restoreConnection(connection);
         }
 
@@ -58,7 +57,6 @@ public class DBUtils {
             System.out.println(e.getMessage());
         }
         finally {
-            //STEP 5 - Close Connection to DB
             ConnectionPool.getInstance().restoreConnection(connection);
         }
     }

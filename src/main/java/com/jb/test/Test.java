@@ -30,12 +30,12 @@ public class Test {
     public static void main(String[] args) throws SQLException, CustomCouponSystemException, InterruptedException {
         //Create DB
         TestCreateDB.runTest();
-        Thread expireCouponRemover = new Thread(new CouponExpirationDailyJob());
-        expireCouponRemover.start();
+        //Thread expireCouponRemover = new Thread(new CouponExpirationDailyJob());
+        //expireCouponRemover.start();
         TestAdminClient();
         TestCustomerClient();
         TestCompanyClient();
-        expireCouponRemover.stop();
+        //System.out.println(expireCouponRemover.getState().toString());
     }
 
     public static void TestAdminClient () throws SQLException, CustomCouponSystemException, InterruptedException {
