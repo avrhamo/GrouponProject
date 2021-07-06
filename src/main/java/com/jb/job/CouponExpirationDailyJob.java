@@ -18,13 +18,16 @@ public class CouponExpirationDailyJob implements Runnable{
         while (true) {
             try {
                 Thread.sleep(5000);
-                couponsDAO.getExpiredCoupons().forEach(coupon -> {
-                    try {
-                        couponsDAO.deleteCoupon(coupon.getId());
-                    } catch (SQLException e) {
-                        System.out.println(e.getMessage());
-                    }
-                });
+                List<Coupon> expiredCoupons = couponsDAO.getExpiredCoupons();
+                if (expiredCoupons != null) {
+                    expiredCoupons.forEach(coupon -> {
+                        try {
+                            couponsDAO.deleteCoupon(coupon.getId());
+                        } catch (SQLException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    });
+                }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             } catch (InterruptedException e) {

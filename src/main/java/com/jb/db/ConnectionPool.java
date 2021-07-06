@@ -1,4 +1,8 @@
 package com.jb.db;
+/**
+ * Created by kobis on 31 May, 2021
+ */
+import com.jb.utils.DBUtils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,7 +38,6 @@ public class ConnectionPool {
     }
 
     public Connection getConnection() throws InterruptedException {
-
         synchronized (connections) {
             if (connections.isEmpty()) {
                 connections.wait();

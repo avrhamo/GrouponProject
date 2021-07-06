@@ -30,12 +30,12 @@ public class Test {
     public static void main(String[] args) throws SQLException, CustomCouponSystemException, InterruptedException {
         //Create DB
         TestCreateDB.runTest();
-        //Thread expireCouponRemover = new Thread(new CouponExpirationDailyJob());
-        //expireCouponRemover.start();
+        Thread expireCouponRemover = new Thread(new CouponExpirationDailyJob());
+        expireCouponRemover.start();
         TestAdminClient();
-        TestCustomerClient();
-        TestCompanyClient();
-        //System.out.println(expireCouponRemover.getState().toString());
+//        TestCustomerClient();
+//        TestCompanyClient();
+        System.out.println(expireCouponRemover.getState().toString());
     }
 
     public static void TestAdminClient () throws SQLException, CustomCouponSystemException, InterruptedException {
@@ -87,7 +87,7 @@ public class Test {
 
     private static void TestCustomerClient() throws SQLException, CustomCouponSystemException, InterruptedException {
         CouponsDAO accessToCouponTable = new CouponsDBDAO();
-        CustomerCouponDBDAO customerCouponDBDAO = new CustomerCouponDBDAO();
+//        CustomerCouponDBDAO customerCouponDBDAO = new CustomerCouponDBDAO();
         CustomerFacade customerFacade;
 
         printTestTitle("Testing Exception - Customer facade login withe wrong details", 2);
