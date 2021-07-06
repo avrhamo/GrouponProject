@@ -77,8 +77,8 @@ public class CompanyFacade extends ClientFacade{
         return couponsDAO.getCompanyAllCoupons(companyId);
     }
 
-    public List<Coupon> getCompanyCoupons(Category category) throws SQLException  {
-        return null;
+    public List<Coupon> getCompanyCoupons(Category category) throws SQLException, InterruptedException {
+        return couponsDAO.getAllCouponsByCategory(companyId, category.value);
     }
 
     public List<Coupon> getAllCouponsByCategory(int categoryId) throws SQLException, InterruptedException {

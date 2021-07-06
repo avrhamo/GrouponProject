@@ -44,7 +44,7 @@ public class AdminFacade extends ClientFacade {
             }
             this.companiesDAO.addCompany(company);
         } catch (CustomCouponSystemException ex) {
-            System.err.println(ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -57,9 +57,9 @@ public class AdminFacade extends ClientFacade {
                 //   }
             } else throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_COMPANY_NAME);
         } catch (CustomCouponSystemException ex) {
-            System.err.println(ex.getMessage());
+            System.out.println(ex.getMessage());
         } catch (SQLException ex) {
-            System.err.println(ERROR_CANNOT_UPDATE_COMPANY_NAME.getMessage());
+            System.out.println(ERROR_CANNOT_UPDATE_COMPANY_NAME.getMessage());
         }
     }
 
@@ -96,7 +96,7 @@ public class AdminFacade extends ClientFacade {
             } else throw new CustomCouponSystemException(ERROR_SAME_EMAIL_CUSTOMER);
 
         } catch (CustomCouponSystemException ex) {
-            System.err.println(ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -107,7 +107,7 @@ public class AdminFacade extends ClientFacade {
             } else throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_CUSTOMER_CODE);
 
         } catch (CustomCouponSystemException ex) {
-            System.err.println(ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 

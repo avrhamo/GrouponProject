@@ -13,9 +13,12 @@ import com.jb.exception.CustomCouponSystemException;
 import com.jb.facade.AdminFacade;
 import com.jb.facade.CompanyFacade;
 import com.jb.facade.CustomerFacade;
+import com.jb.job.CouponExpirationDailyJob;
 
 import java.sql.Date;
 import java.sql.SQLException;
+
+import static com.jb.beans.Category.VACATION;
 
 public class Test {
 
@@ -27,9 +30,12 @@ public class Test {
     public static void main(String[] args) throws SQLException, CustomCouponSystemException, InterruptedException {
         //Create DB
         TestCreateDB.runTest();
-//        TestAdminClient();
-//        TestCustomerClient();
+        Thread expireCouponRemover = new Thread(new CouponExpirationDailyJob());
+        expireCouponRemover.start();
+        TestAdminClient();
+        TestCustomerClient();
         TestCompanyClient();
+        expireCouponRemover.stop();
     }
 
     public static void TestAdminClient () throws SQLException, CustomCouponSystemException, InterruptedException {
@@ -97,7 +103,7 @@ public class Test {
         customerFacade.getCustomerCoupons(60).forEach(System.out::println);
 
         printTestTitle("Testing Customer facade getCustomerCoupons(Category.VACATION)", 1);
-        customerFacade.getCustomerCoupons(Category.VACATION).forEach(System.out::println);
+        customerFacade.getCustomerCoupons(VACATION).forEach(System.out::println);
 
         printTestTitle("Testing Customer Facade Exception - trying to buy expired coupon", 1);
         Coupon coupon9 = new Coupon(9, 5, 3, "Cool coupon - 9", "Cool Discount5", Date.valueOf("2021-02-01"), Date.valueOf("2021-07-01"), 2000, 158.50, "image9");
@@ -135,7 +141,6 @@ public class Test {
         Coupon coupon1 = new Coupon(1, 1, 1, "Cool coupon - 1", "Cool Discount1", Date.valueOf("2021-01-01"), Date.valueOf("2023-01-01"), 1000, 58.50, "image1");
         printTestTitle("Testing Company facade Exception - trying to add existing coupon", 2);
         companyFacade.addCoupon(coupon1);
-
         Coupon coupon3 = new Coupon( 1, 3, "Cool coupon - 3", "Cool Discount3", Date.valueOf("2021-03-01"), Date.valueOf("2026-03-01"), 3000, 538.50, "image3");
         printTestTitle("Testing Company facade - trying to add valid coupon", 1);
         printTestTitle("company coupons before adding coupon", 1);
@@ -144,7 +149,14 @@ public class Test {
         printTestTitle("company coupons after adding coupon", 1);
         companyFacade.getCompanyCoupons().forEach(System.out::println);
 
+        printTestTitle("Testing company get all coupons max price of 100", 1);
+        companyFacade.getCompanyCoupons(100).forEach(System.out::println);
 
+        printTestTitle("Test company facade get all coupons by category [3]", 1);
+        companyFacade.getCompanyCoupons(VACATION).forEach(System.out::println);
+
+        printTestTitle("Test company facade get company details", 1);
+        System.out.println(companyFacade.getCompanyDetails().toString());
 
     }
     private static void printTestTitle(String testTitle, int testType) {

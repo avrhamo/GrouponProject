@@ -36,4 +36,6 @@ public interface CouponsDAO {
     public boolean isCouponValidToPurchase(int couponId) throws SQLException;
 
     public List<Coupon> getAllCustomerCoupons(int customerId) throws SQLException, InterruptedException;
+
+    public List<Coupon> getExpiredCoupons() throws SQLException, InterruptedException;
 }
