@@ -296,7 +296,6 @@ public class CouponsDBDAO implements CouponsDAO {
     public List<Coupon> getExpiredCoupons() throws SQLException, InterruptedException {
         List<Coupon> coupons = new ArrayList<>();
         Map<Integer, Object> map = new HashMap<>();
-        System.out.println(Date.valueOf(LocalDate.now()));
         map.put(1, Date.valueOf(LocalDate.now()));
         try {
             ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_GET_ALL_EXPIRED_COUPONS, map);

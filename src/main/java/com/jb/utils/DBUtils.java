@@ -94,11 +94,13 @@ public class DBUtils {
                     statement.setFloat(key,(float) value);
                 }else if (value instanceof Double) {
                     statement.setDouble(key, (Double)value);
+                }else if (value instanceof Date){
+                    statement.setObject(key, value);
                 }
             }
             resultSet = statement.executeQuery();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         } finally {
             ConnectionPool.getInstance().restoreConnection(connection);
         }

@@ -54,12 +54,12 @@ public class TestCreateDB {
         Coupon coupon1 = new Coupon(1, 1, 1, "Cool coupon - 1", "Cool Discount1", Date.valueOf("2021-01-01"), Date.valueOf("2023-01-01"), 1000, 58.50, "image1");
         Coupon coupon2 = new Coupon(2, 2, 2, "Cool coupon - 2", "Cool Discount2", Date.valueOf("2021-02-01"), Date.valueOf("2024-02-01"), 2000, 5448.50, "image2");
         Coupon coupon3 = new Coupon(3, 3, 3, "Cool coupon - 3", "Cool Discount3", Date.valueOf("2021-03-01"), Date.valueOf("2026-03-01"), 3000, 538.50, "image3");
-        Coupon coupon4 = new Coupon(4, 4, 4, "Cool coupon - 4", "Cool Discount4", Date.valueOf("2021-01-01"), Date.valueOf("2025-04-01"), 0, 558.50, "image4");
+        Coupon coupon4 = new Coupon(4, 4, 4, "Cool coupon - 4", "Cool Discount4", Date.valueOf("2021-01-01"), Date.valueOf("2015-04-01"), 0, 558.50, "image4");
         Coupon coupon5 = new Coupon(5, 5, 5, "Cool coupon - 5", "Cool Discount5", Date.valueOf("2021-02-01"), Date.valueOf("2023-02-01"), 2000, 158.50, "image5");
         Coupon coupon6 = new Coupon(6, 6, 6, "Cool coupon - 6", "Cool Discount6", Date.valueOf("2021-03-01"), Date.valueOf("2026-03-01"), 3000, 58.50, "image6");
         Coupon coupon7 = new Coupon(7, 3, 7, "Cool coupon - 7", "Cool Discount3", Date.valueOf("2021-03-01"), Date.valueOf("2028-03-01"), 3000, 538.50, "image7");
         Coupon coupon8 = new Coupon(8, 4, 9, "Cool coupon - 8", "Cool Discount4", Date.valueOf("2021-01-01"), Date.valueOf("2024-04-01"), 0, 558.50, "image8");
-        Coupon coupon9 = new Coupon(9, 5, 3, "Cool coupon - 9", "Cool Discount5", Date.valueOf("2021-02-01"), Date.valueOf("2021-07-01"), 2000, 158.50, "image9");
+        Coupon coupon9 = new Coupon(9, 5, 3, "Cool coupon - 9", "Cool Discount5", Date.valueOf("2021-02-01"), Date.valueOf("2021-01-01"), 2000, 158.50, "image9");
         Coupon coupon10= new Coupon(10, 6, 3, "Cool coupon - 10", "Cool Discount6", Date.valueOf("2021-03-01"), Date.valueOf("2026-12-01"), 3000, 58.50, "image10");
 
         //Insert to DB

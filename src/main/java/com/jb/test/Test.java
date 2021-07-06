@@ -25,17 +25,18 @@ public class Test {
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_YELLOW = "\u001B[33m";
+
     private final static int testCase = 1;
 
     public static void main(String[] args) throws SQLException, CustomCouponSystemException, InterruptedException {
         //Create DB
         TestCreateDB.runTest();
-        Thread expireCouponRemover = new Thread(new CouponExpirationDailyJob());
+        Thread expireCouponRemover = new CouponExpirationDailyJob();
         expireCouponRemover.start();
-        TestAdminClient();
-//        TestCustomerClient();
-//        TestCompanyClient();
-        System.out.println(expireCouponRemover.getState().toString());
+        //TestAdminClient();
+        //TestCustomerClient();
+        //TestCompanyClient();
+        //expireCouponRemover.stop();
     }
 
     public static void TestAdminClient () throws SQLException, CustomCouponSystemException, InterruptedException {
