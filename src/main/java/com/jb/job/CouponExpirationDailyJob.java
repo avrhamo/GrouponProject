@@ -40,8 +40,8 @@ public class CouponExpirationDailyJob implements Runnable{
                         }
                     });
                     System.out.println("daily job message : " + expiredCoupons.size() + " - coupons has been deleted ");
-                    //Thread.sleep(1000);
-                    Thread.sleep(24 * 60 * 60 * 1000);
+                    Thread.sleep(1000);
+                    //Thread.sleep(24 * 60 * 60 * 1000);
                 }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
