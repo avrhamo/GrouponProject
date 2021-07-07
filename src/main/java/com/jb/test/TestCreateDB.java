@@ -14,10 +14,6 @@ import java.sql.SQLException;
 
 public class TestCreateDB {
 
-//    public static void main(String[] args) throws SQLException {
-//        runTest();
-//    }
-
     public static void runTest() throws SQLException {
          //Create DB
         DatabaseManager.DropAndCreate();

@@ -13,8 +13,7 @@ import java.util.*;
 
 public class CompaniesDBDAO implements CompaniesDAO {
 
-    private final String QUERY_INSERT_COMPANY = "INSERT INTO `bhp-g2-coup-sys-p2`.`companies` " +
-            "(`name`, `email`, `password`) VALUES (?, ?, ?);";
+    private final String QUERY_INSERT_COMPANY = "INSERT INTO `bhp-g2-coup-sys-p2`.`companies` (`name`, `email`, `password`) VALUES (?, ?, ?);";
 
     private final String QUERY_UPDATE_COMPANY = "UPDATE `bhp-g2-coup-sys-p2`.`companies` SET `name` = ?, `email` = ?, `password` = ? WHERE (`id` = ?);";
 
@@ -102,8 +101,15 @@ public class CompaniesDBDAO implements CompaniesDAO {
         map.put(1,id);
         ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_SELECT_ONE_BY_ID,map);
         resultSet.next();
-        return new Company(resultSet.getInt(1),resultSet.getString(2),
-                resultSet.getString(3),resultSet.getString(4),null);
+        Company result = null;
+        try{
+            result = new Company(resultSet.getInt(1),resultSet.getString(2),
+                    resultSet.getString(3),resultSet.getString(4),null);
+
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
     }
 
     public Company getOneCompany(String name, String email) throws SQLException {
@@ -112,9 +118,12 @@ public class CompaniesDBDAO implements CompaniesDAO {
         map.put(1,name);
         map.put(2,email);
         ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_SELECT_ONE_BY_NAME_AND_MAIL,map);
-        resultSet.next();
-        return new Company(resultSet.getInt(1),resultSet.getString(2),
-                resultSet.getString(3),resultSet.getString(4),null);
+        Company company = null;
+        if (resultSet.next()) {
+            company = new Company(resultSet.getInt(1), resultSet.getString(2),
+                    resultSet.getString(3), resultSet.getString(4), null);
+        }
+        return company;
     }
 
     public Company getOneCompanyByEmailAndPassword(String email, String password) throws SQLException {
@@ -123,9 +132,11 @@ public class CompaniesDBDAO implements CompaniesDAO {
         map.put(1,email);
         map.put(2,password);
         ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_SELECT_ONE_BY_MAIL_AND_PASS,map);
+        Company company = null;
         resultSet.next();
-        return new Company(resultSet.getInt(1),resultSet.getString(2),
+        company = new Company(resultSet.getInt(1),resultSet.getString(2),
                 resultSet.getString(3),resultSet.getString(4),null);
+        return company;
     }
 
     public boolean isCompanyNameEmailExist (String companyName, String companyEmail) throws SQLException {

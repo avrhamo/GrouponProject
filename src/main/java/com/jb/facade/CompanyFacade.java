@@ -68,7 +68,7 @@ public class CompanyFacade extends ClientFacade{
 
     public void deleteCoupon(int couponId)  throws SQLException {
         CustomersCouponDAO customersCouponDAO = new CustomerCouponDBDAO();
-        customersCouponDAO.DeleteByCouponId(couponId);
+        customersCouponDAO.deleteByCouponId(couponId);
         couponsDAO.deleteCoupon(couponId);
 
     }

@@ -1,6 +1,7 @@
 package com.jb.utils;
 
 import com.jb.db.ConnectionPool;
+
 import java.sql.*;
 import java.util.Date;
 import java.util.Map;
@@ -9,54 +10,49 @@ public class DBUtils {
 
     public static void runQuery(String sql) throws SQLException {
         Connection connection = null;
-        try{
+        try {
             //STEP 2 - Open Connection to DB
             connection = ConnectionPool.getInstance().getConnection();
 
             //STEP 3 - Run your SQL instruction
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.executeUpdate();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.getInstance().restoreConnection(connection);
         }
 
     }
 
-    public static void runQuery(String sql, Map<Integer,Object> map) throws SQLException {
+    public static void runQuery(String sql, Map<Integer, Object> map) throws SQLException {
         Connection connection = null;
-        try{
+        try {
             //STEP 2 - Open Connection to DB
             connection = ConnectionPool.getInstance().getConnection();
 
             //STEP 3 - Run your SQL instruction
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            for (Map.Entry<Integer,Object> entry: map.entrySet()) {
+            for (Map.Entry<Integer, Object> entry : map.entrySet()) {
                 int key = entry.getKey();
                 Object value = entry.getValue();
-                if(value instanceof String){
-                    statement.setString(key,String.valueOf(value));
-                }
-                else if (value instanceof Integer){
-                    statement.setInt(key,(int)value);
-                }else if(value instanceof Float){
-                    statement.setFloat(key,(float) value);
-                }else if(value instanceof Date){
-                    statement.setObject(key,value);
-                }else if(value instanceof Double){
-                    statement.setObject(key,value);
+                if (value instanceof String) {
+                    statement.setString(key, String.valueOf(value));
+                } else if (value instanceof Integer) {
+                    statement.setInt(key, (int) value);
+                } else if (value instanceof Float) {
+                    statement.setFloat(key, (float) value);
+                } else if (value instanceof Date) {
+                    statement.setObject(key, value);
+                } else if (value instanceof Double) {
+                    statement.setObject(key, value);
                 }
             }
             statement.executeUpdate();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.getInstance().restoreConnection(connection);
         }
     }
@@ -76,25 +72,24 @@ public class DBUtils {
         return resultSet;
     }
 
-    public static ResultSet runQueryWithResults(String sql,Map<Integer,Object> map) throws SQLException {
+    public static ResultSet runQueryWithResults(String sql, Map<Integer, Object> map) throws SQLException {
         ResultSet resultSet = null;
         Connection connection = null;
         try {
             connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
-            for (Map.Entry<Integer,Object> entry: map.entrySet()) {
+            for (Map.Entry<Integer, Object> entry : map.entrySet()) {
                 int key = entry.getKey();
                 Object value = entry.getValue();
-                if(value instanceof String){
-                    statement.setString(key,String.valueOf(value));
-                }
-                else if (value instanceof Integer){
-                    statement.setInt(key,(int)value);
-                }else if (value instanceof Float){
-                    statement.setFloat(key,(float) value);
-                }else if (value instanceof Double) {
-                    statement.setDouble(key, (Double)value);
-                }else if (value instanceof Date){
+                if (value instanceof String) {
+                    statement.setString(key, String.valueOf(value));
+                } else if (value instanceof Integer) {
+                    statement.setInt(key, (int) value);
+                } else if (value instanceof Float) {
+                    statement.setFloat(key, (float) value);
+                } else if (value instanceof Double) {
+                    statement.setDouble(key, (Double) value);
+                } else if (value instanceof Date) {
                     statement.setObject(key, value);
                 }
             }

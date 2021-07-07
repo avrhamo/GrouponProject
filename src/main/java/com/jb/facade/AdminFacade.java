@@ -3,6 +3,7 @@ package com.jb.facade;
 import com.jb.beans.Company;
 import com.jb.beans.Coupon;
 import com.jb.beans.Customer;
+import com.jb.beans.CustomerVsCoupon;
 import com.jb.dao.CustomersCouponDAO;
 import com.jb.dbdao.CompaniesDBDAO;
 import com.jb.dbdao.CouponsDBDAO;
@@ -19,7 +20,7 @@ public class AdminFacade extends ClientFacade {
 
     private final String EMAIL = "admin@admin.com";
     private final String PASSWORD = "admin";
-    private CustomersCouponDAO customerCouponDBDAO = new CustomerCouponDBDAO();
+//    private CustomersCouponDAO customerCouponDBDAO = new CustomerCouponDBDAO();
 
     public AdminFacade() {
         super();
@@ -50,11 +51,13 @@ public class AdminFacade extends ClientFacade {
 
     public void updateCompany(Company company) throws SQLException, CustomCouponSystemException {
         try {
-            //if (companiesDAO.isCompanyExists(company.getEmail(),company.getPassword())) {
-            Company companyFromDB = companiesDAO.getOneCompany(company.getId());
+            //Company companyFromDB = companiesDAO.getOneCompany(company.getId());
+            Company companyFromDB = companiesDAO.getOneCompany(company.getName(), company.getEmail());
+            if (companyFromDB == null) {
+                throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_COMPANY_NAME);
+            }
             if (companyFromDB.getId() == company.getId() && companyFromDB.getName() != company.getName()) {
                 companiesDAO.updateCompany(company);
-                //   }
             } else throw new CustomCouponSystemException(ERROR_CANNOT_UPDATE_COMPANY_NAME);
         } catch (CustomCouponSystemException ex) {
             System.out.println(ex.getMessage());
@@ -65,19 +68,29 @@ public class AdminFacade extends ClientFacade {
 
     public void deleteCompany(int companyId) throws SQLException, InterruptedException {
         List<Coupon> companyCoupons = couponsDAO.getCompanyAllCoupons(companyId);
-        companyCoupons.forEach(coupon -> {
-            try {
-                customerCouponDBDAO.DeleteByCouponId(coupon.getId());
-                couponsDAO.deleteCoupon(coupon.getId());
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        });
-        try {
-            companiesDAO.deleteCompany(companyId);
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        List<CustomerVsCoupon> customerVsCoupons;
+        System.out.println("123");
+
+        for (Coupon c: companyCoupons) {
+            customersCouponDAO.deleteByCouponId(c.getId());
+            couponsDAO.deleteCoupon(c.getId());
         }
+        System.out.println("456");
+        companiesDAO.deleteCompany(companyId);
+
+//        companyCoupons.forEach(coupon -> {
+//            try {
+//                customerCouponDBDAO.DeleteByCouponId(coupon.getId());
+//                couponsDAO.deleteCoupon(coupon.getId());
+//            } catch (SQLException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        });
+//        try {
+//            companiesDAO.deleteCompany(companyId);
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
 
     }
 
@@ -112,7 +125,7 @@ public class AdminFacade extends ClientFacade {
     }
 
     public void deleteCustomer(Customer customer) throws SQLException {
-        customerCouponDBDAO.DeleteCustomer(customer.getId());
+        customersCouponDAO.DeleteCustomer(customer.getId());
         customersDAO.deleteCustomer(customer.getId());
     }
 
