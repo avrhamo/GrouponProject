@@ -9,33 +9,33 @@ import java.util.List;
 
 public interface CouponsDAO {
 
-    public void addCoupon(Coupon coupon) throws SQLException;
+    void addCoupon(Coupon coupon) throws SQLException;
 
-    public void updateCoupon(Coupon coupon) throws SQLException;
+    void updateCoupon(Coupon coupon) throws SQLException;
 
-    public void deleteCoupon(int couponId) throws SQLException;
+    void deleteCoupon(int couponId) throws SQLException;
 
-    public void deleteCompanyCoupon(int couponId) throws SQLException;
+    void deleteCompanyCoupon(int couponId) throws SQLException;
 
-    public List<Coupon> getAllCoupons() throws SQLException, InterruptedException;
+    List<Coupon> getAllCoupons() throws SQLException, InterruptedException;
 
-    public List<Coupon> getCompanyAllCoupons(int companyId) throws SQLException, InterruptedException;
+    List<Coupon> getCompanyAllCoupons(int companyId) throws SQLException, InterruptedException;
 
-    public Coupon getOneCoupon(int couponId) throws SQLException;
+    Coupon getOneCoupon(int couponId) throws SQLException;
 
-    public void addCouponPurchase(int customerId, int couponId) throws SQLException;
+    void addCouponPurchase(int customerId, int couponId) throws SQLException;
 
-    public void deleteCouponPurchase(int customerId, int couponId)throws SQLException;
+    void deleteCouponPurchase(int customerId, int couponId)throws SQLException;
 
-    public boolean isCouponNameExistUnderCompany(int companyId, String title ) throws SQLException;
+    boolean isCouponNameExistUnderCompany(int companyId, String title ) throws SQLException;
 
-    public List<Coupon> getAllCouponsByCategory(int companyId, int categoryId) throws SQLException, InterruptedException;
+    List<Coupon> getAllCouponsByCategory(int companyId, int categoryId) throws SQLException, InterruptedException;
 
-    public List<Coupon> getAllCouponsUnderMaxPrice(int companyId, double maxPrice) throws SQLException, InterruptedException;
+    List<Coupon> getAllCouponsUnderMaxPrice(int companyId, double maxPrice) throws SQLException, InterruptedException;
 
-    public boolean isCouponValidToPurchase(int couponId) throws SQLException;
+    boolean isCouponValidToPurchase(int couponId) throws SQLException;
 
-    public List<Coupon> getAllCustomerCoupons(int customerId) throws SQLException, InterruptedException;
+    List<Coupon> getAllCustomerCoupons(int customerId) throws SQLException, InterruptedException;
 
-    public List<Coupon> getExpiredCoupons() throws SQLException, InterruptedException;
+    List<Coupon> getExpiredCoupons() throws SQLException, InterruptedException;
 }

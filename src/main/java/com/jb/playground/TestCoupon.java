@@ -34,13 +34,13 @@ public class TestCoupon {
         //TestCustomer.TestCustomersDB();
         CategoriesDBDAO.addCategories();
 
-        System.out.println(ArtUtils.INSERT);
+//        System.out.println(ArtUtils.INSERT);
 
         //Access to company table
         CompaniesDAO CompanyDAO = new CompaniesDBDAO();
 
         // Insert companies
-        System.out.println(ArtUtils.INSERT);
+//        System.out.println(ArtUtils.INSERT);
         Company company1 = new Company("NIKE1", "nikeEmail1@nike.com", "1nike1234", null);
         Company company2 = new Company("NIKE2", "nikeEmail2@nike.com", "2nike1234", null);
         Company company3 = new Company("NIKE3", "nikeEmail3@nike.com", "3nike1234", null);
@@ -49,7 +49,7 @@ public class TestCoupon {
         CompanyDAO.addCompany(company2);
         CompanyDAO.addCompany(company3);
 
-        System.out.println(ArtUtils.INSERT);
+//        System.out.println(ArtUtils.INSERT);
         Customer customer1 = new Customer("Dani", "Din", "Dani@Din.mail.com", "1234");
         Customer customer2 = new Customer("David", "Fogel", "nikeEmail2@nike.com", "12345678");
         Customer customer3 = new Customer("Beni", "Davidov", "nikeEmail3@nike.com", "3nike1234");
@@ -79,7 +79,7 @@ public class TestCoupon {
         couponsDAO.addCoupon(coupon6);
 
         //update coupon 1
-        System.out.println(ArtUtils.UPDATE);
+//        System.out.println(ArtUtils.UPDATE);
         coupon1.setTitle("Cool Discount1 updated!!!");
         couponsDAO.updateCoupon(coupon1);
 

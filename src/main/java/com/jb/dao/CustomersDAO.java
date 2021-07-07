@@ -7,19 +7,19 @@ import java.util.List;
 
 public interface CustomersDAO {
 
-    public boolean isCustomerExists(String email, String password) throws SQLException;
+    boolean isCustomerExists(String email, String password) throws SQLException;
 
-    public void addCustomer(Customer customer) throws SQLException;
+    void addCustomer(Customer customer) throws SQLException;
 
-    public void updateCustomer(Customer customer) throws SQLException;
+    void updateCustomer(Customer customer) throws SQLException;
 
-    public void deleteCustomer(int customerId) throws SQLException;
+    void deleteCustomer(int customerId) throws SQLException;
 
-    public List<Customer> getAllCustomers() throws SQLException, InterruptedException;
+    List<Customer> getAllCustomers() throws SQLException, InterruptedException;
 
-    public Customer getOneCustomer(int id) throws SQLException;
+    Customer getOneCustomer(int id) throws SQLException;
 
-    public boolean isEmailExist(String email) throws SQLException;
+    boolean isEmailExist(String email) throws SQLException;
 
-    public int getIdCustomerByEmail(String email, String password)throws SQLException;
+    int getIdCustomerByEmail(String email, String password)throws SQLException;
 }

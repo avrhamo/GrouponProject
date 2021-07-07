@@ -7,18 +7,16 @@ import java.util.List;
 
 public interface CustomersCouponDAO {
 
-    public void InsertCustomersCoupons(int customerId, int couponId) throws SQLException;
+    void InsertCustomersCoupons(int customerId, int couponId) throws SQLException;
 
-    public void DeleteRowCustomersCoupons(int customerId, int couponId) throws SQLException;
+    void deleteCouponPurchase(int customerId, int couponId) throws SQLException;
 
-    public boolean isExistCustomersCoupons(int customerId, int couponId) throws SQLException;
+    boolean isExistCustomersCoupons(int customerId, int couponId) throws SQLException;
 
-    public void deleteByCouponId(int couponId) throws SQLException;
+    void deleteByCouponId(int couponId) throws SQLException;
 
-    public void DeleteCustomer(int couponId) throws SQLException;
+    void DeleteCustomer(int couponId) throws SQLException;
 
-    public List<CustomerVsCoupon> getAllByCouponId(int couponId) throws SQLException, InterruptedException;
-
-
+    List<CustomerVsCoupon> getAllByCouponId(int couponId) throws SQLException, InterruptedException;
 
 }

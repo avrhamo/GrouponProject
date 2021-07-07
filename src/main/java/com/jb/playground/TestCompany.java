@@ -27,7 +27,7 @@ public class TestCompany {
         CompaniesDAO CompanyDAO = new CompaniesDBDAO();
 
         // Insert companies
-        System.out.println(ArtUtils.INSERT);
+//        System.out.println(ArtUtils.INSERT);
         Company c1 = new Company("NIKE1", "nikeEmail1@nike.com", "1nike1234", null);
         Company c2 = new Company("NIKE2", "nikeEmail2@nike.com", "2nike1234", null);
         Company c3 = new Company("NIKE3", "nikeEmail3@nike.com", "3nike1234", null);
@@ -37,15 +37,15 @@ public class TestCompany {
         CompanyDAO.addCompany(c3);
 
         //Get all companies
-        System.out.println(ArtUtils.GET_ALL);
+//        System.out.println(ArtUtils.GET_ALL);
         List<Company> companies = CompanyDAO.getAllCompanies();
         companies.forEach(System.out::println);
 
         //Get one company by id
-        System.out.println(ArtUtils.GET_SINGLE);
+//        System.out.println(ArtUtils.GET_SINGLE);
         System.out.println(CompanyDAO.getOneCompany(1).toString());
 
-        System.out.println(ArtUtils.GET_SINGLE);
+//        System.out.println(ArtUtils.GET_SINGLE);
         System.out.println(CompanyDAO.getOneCompany(2).toString());
 
         //Select company by mail and password
@@ -62,7 +62,7 @@ public class TestCompany {
 //        System.out.println(CompanyDAO.isCompanyExists("nikeEmail2@nike.com","2nike1234"));
 
         //Update company
-        System.out.println(ArtUtils.UPDATE);
+//        System.out.println(ArtUtils.UPDATE);
         System.out.println("changing password to `hello world` -- companyId = 1");
         c1 = CompanyDAO.getOneCompany(1);
         c1.setPassword("hello world");

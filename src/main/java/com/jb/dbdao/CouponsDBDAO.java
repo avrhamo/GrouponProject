@@ -35,7 +35,6 @@ public class CouponsDBDAO implements CouponsDAO {
     public static final String QUERY_SELECT_ALL_COUPONS_BY_CUSTOMER = "SELECT * FROM `bhp-g2-coup-sys-p2`.coupons JOIN `bhp-g2-coup-sys-p2`.customers_coupons ON `bhp-g2-coup-sys-p2`.customers_coupons.coupon_id = `bhp-g2-coup-sys-p2`.coupons.id WHERE `bhp-g2-coup-sys-p2`.customers_coupons.customer_id = ? ; ";
     public static final String QUERY_GET_ALL_EXPIRED_COUPONS = "SELECT * FROM `bhp-g2-coup-sys-p2`.`coupons` WHERE end_date < CURDATE();";
 
-
     @Override
     public void addCoupon(Coupon coupon) throws SQLException {
         Map<Integer, Object> map = new HashMap<>();
@@ -173,7 +172,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
         CustomersCouponDAO customersCouponsDBDAO = new CustomerCouponDBDAO();
         if (customersCouponsDBDAO.isExistCustomersCoupons(customerId, couponId)) {
-            customersCouponsDBDAO.DeleteRowCustomersCoupons(customerId, couponId);
+            customersCouponsDBDAO.deleteCouponPurchase(customerId, couponId);
         }
     }
 
@@ -217,27 +216,22 @@ public class CouponsDBDAO implements CouponsDAO {
         Map<Integer, Object> map = new HashMap<>();
         map.put(1, companyId);
         map.put(2, maxPrice);
-        try {
-            ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_GET_ALL_COUPONS_UNDER_PRICE, map);
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                companyId = resultSet.getInt(2);
-                int categoryId = resultSet.getInt(3);
-                String title = resultSet.getString(4);
-                String description = resultSet.getString(5);
-                Date start_date = resultSet.getDate(6);
-                Date end_date = resultSet.getDate(7);
-                int amount = resultSet.getInt(8);
-                double price = resultSet.getDouble(9);
-                String image = resultSet.getString(10);
-                Coupon coupon = new Coupon(id, companyId, categoryId, title, description, start_date, end_date, amount, price, image);
-                coupons.add(coupon);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            ConnectionPool.getInstance().getConnection();
+        ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_GET_ALL_COUPONS_UNDER_PRICE, map);
+        while (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            companyId = resultSet.getInt(2);
+            int categoryId = resultSet.getInt(3);
+            String title = resultSet.getString(4);
+            String description = resultSet.getString(5);
+            Date start_date = resultSet.getDate(6);
+            Date end_date = resultSet.getDate(7);
+            int amount = resultSet.getInt(8);
+            double price = resultSet.getDouble(9);
+            String image = resultSet.getString(10);
+            Coupon coupon = new Coupon(id, companyId, categoryId, title, description, start_date, end_date, amount, price, image);
+            coupons.add(coupon);
         }
+
         return coupons;
     }
 

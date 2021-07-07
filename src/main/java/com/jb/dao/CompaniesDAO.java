@@ -6,21 +6,21 @@ import java.util.List;
 
 public interface CompaniesDAO {
 
-    public boolean isCompanyExists(String email, String password) throws SQLException;
+    boolean isCompanyExists(String email, String password) throws SQLException;
 
-    public void addCompany(Company company) throws SQLException;
+    void addCompany(Company company) throws SQLException;
 
-    public void updateCompany(Company company) throws SQLException;
+    void updateCompany(Company company) throws SQLException;
 
-    public void deleteCompany(int companyId) throws SQLException;
+    void deleteCompany(int companyId) throws SQLException;
 
-    public List<Company> getAllCompanies() throws SQLException, InterruptedException;
+    List<Company> getAllCompanies() throws SQLException, InterruptedException;
 
-    public Company getOneCompany(int id) throws SQLException;
+    Company getOneCompany(int id) throws SQLException;
 
-    public boolean isCompanyNameEmailExist (String companyName, String companyEmail) throws SQLException;
+    boolean isCompanyNameEmailExist (String companyName, String companyEmail) throws SQLException;
 
-    public Company getOneCompany(String name, String email) throws SQLException;
+    Company getOneCompany(String name, String email) throws SQLException;
 
-    public Company getOneCompanyByEmailAndPassword(String name, String email) throws SQLException;
+    Company getOneCompanyByEmailAndPassword(String name, String email) throws SQLException;
 }

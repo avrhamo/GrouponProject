@@ -32,7 +32,7 @@ public class CustomerCouponDBDAO implements CustomersCouponDAO {
     }
 
     @Override
-    public void DeleteRowCustomersCoupons(int customerId, int couponId) throws SQLException {
+    public void deleteCouponPurchase(int customerId, int couponId) throws SQLException {
         Map<Integer, Object> map = new HashMap<>();
         map.put(1, customerId);
         map.put(2, couponId);
