@@ -14,6 +14,7 @@ import com.jb.facade.AdminFacade;
 import com.jb.facade.CompanyFacade;
 import com.jb.facade.CustomerFacade;
 import com.jb.job.CouponExpirationDailyJob;
+import com.jb.utils.ArtUtils;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -29,15 +30,13 @@ public class Test {
     private final static int testCase = 1;
 
     public static void main(String[] args) throws SQLException, CustomCouponSystemException, InterruptedException {
-        //Create DB
         TestCreateDB.runTest();
-//        Thread t = new Thread(new CouponExpirationDailyJob());
-//        t.setDaemon(true);
-//        t.start();
+        Thread t = new Thread(new CouponExpirationDailyJob());
+        t.start();
         TestAdminClient();
-        //TestCustomerClient();
-        //TestCompanyClient();
-        //((CouponExpirationDailyJob)t).quit();
+        TestCustomerClient();
+        TestCompanyClient();
+        CouponExpirationDailyJob.quit();
     }
 
     public static void TestAdminClient() throws SQLException, CustomCouponSystemException, InterruptedException {
@@ -89,7 +88,7 @@ public class Test {
 
     private static void TestCustomerClient() throws SQLException, CustomCouponSystemException, InterruptedException {
         CouponsDAO accessToCouponTable = new CouponsDBDAO();
-//        CustomerCouponDBDAO customerCouponDBDAO = new CustomerCouponDBDAO();
+        CustomerCouponDBDAO customerCouponDBDAO = new CustomerCouponDBDAO();
         CustomerFacade customerFacade;
 
         printTestTitle("Testing Exception - Customer facade login withe wrong details", 2);
@@ -98,7 +97,7 @@ public class Test {
         printTestTitle("Testing Customer login with correct details", 1);
         customerFacade = (CustomerFacade) LoginManager.getInstance().login("Dani@gmail.com", "1111", ClientType.CUSTOMER);
 
-        printTestTitle("Testing Customer facade getCustomerCoupons()", 1);
+        printTestTitle("Testing Customer facade getCustomerCoupons(1)", 1);
         customerFacade.getCustomerCoupons().forEach(System.out::println);
 
         printTestTitle("Testing Customer facade getCustomerCoupons(maxPrice = 60)", 1);
@@ -133,31 +132,31 @@ public class Test {
 
         CouponsDAO accessToCouponTable = new CouponsDBDAO();
         CustomerCouponDBDAO customerCouponDBDAO = new CustomerCouponDBDAO();
-
-        printTestTitle("Testing Exception - Company facade login withe wrong details", 2);
+        printTestTitle(ArtUtils.DELETE, 2);
+        printTestTitle("            Testing Exception - Company facade login withe wrong details", 2);
         CompanyFacade companyFacade = (CompanyFacade) LoginManager.getInstance().login("1Dani@gmail.com", "11111", ClientType.COMPANY);
 
-        printTestTitle("Testing Company login with correct details", 1);
+        printTestTitle("            Testing Company login with correct details", 1);
         System.out.println(companyFacade.login("company1@Email.com", "1111"));
 
         Coupon coupon1 = new Coupon(1, 1, 1, "Cool coupon - 1", "Cool Discount1", Date.valueOf("2021-01-01"), Date.valueOf("2023-01-01"), 1000, 58.50, "image1");
-        printTestTitle("Testing Company facade Exception - trying to add existing coupon", 2);
+        printTestTitle("            Testing Company facade Exception - trying to add existing coupon", 2);
         companyFacade.addCoupon(coupon1);
         Coupon coupon3 = new Coupon(1, 3, "Cool coupon - 3", "Cool Discount3", Date.valueOf("2021-03-01"), Date.valueOf("2026-03-01"), 3000, 538.50, "image3");
-        printTestTitle("Testing Company facade - trying to add valid coupon", 1);
-        printTestTitle("company coupons before adding coupon", 1);
+        printTestTitle("            Testing Company facade - trying to add valid coupon", 1);
+        printTestTitle("            company coupons before adding coupon", 1);
         companyFacade.getCompanyCoupons().forEach(System.out::println);
         companyFacade.addCoupon(coupon3);
-        printTestTitle("company coupons after adding coupon", 1);
+        printTestTitle("            company coupons after adding coupon", 1);
         companyFacade.getCompanyCoupons().forEach(System.out::println);
 
-        printTestTitle("Testing company get all coupons max price of 100", 1);
+        printTestTitle("            Testing company get all coupons max price of 100", 1);
         companyFacade.getCompanyCoupons(100).forEach(System.out::println);
 
-        printTestTitle("Test company facade get all coupons by category [3]", 1);
+        printTestTitle("            Test company facade get all coupons by category [3]", 1);
         companyFacade.getCompanyCoupons(VACATION).forEach(System.out::println);
 
-        printTestTitle("Test company facade get company details", 1);
+        printTestTitle("            Test company facade get company details", 1);
         System.out.println(companyFacade.getCompanyDetails().toString());
 
     }

@@ -73,11 +73,8 @@ public class CompaniesDBDAO implements CompaniesDAO {
     @Override
     public List<Company> getAllCompanies() throws SQLException, InterruptedException {
         List<Company> companies = new ArrayList<>();
-        Connection connection = null;
         try {
-            connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(QUERY_SELECT_ALL);
-            ResultSet resultSet  = statement.executeQuery();
+            ResultSet resultSet  = DBUtils.runQueryWithResults(QUERY_SELECT_ALL);
             while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String name = resultSet.getString(2);

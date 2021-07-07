@@ -68,30 +68,11 @@ public class AdminFacade extends ClientFacade {
 
     public void deleteCompany(int companyId) throws SQLException, InterruptedException {
         List<Coupon> companyCoupons = couponsDAO.getCompanyAllCoupons(companyId);
-        List<CustomerVsCoupon> customerVsCoupons;
-        System.out.println("123");
-
         for (Coupon c: companyCoupons) {
             customersCouponDAO.deleteByCouponId(c.getId());
             couponsDAO.deleteCoupon(c.getId());
         }
-        System.out.println("456");
         companiesDAO.deleteCompany(companyId);
-
-//        companyCoupons.forEach(coupon -> {
-//            try {
-//                customerCouponDBDAO.DeleteByCouponId(coupon.getId());
-//                couponsDAO.deleteCoupon(coupon.getId());
-//            } catch (SQLException e) {
-//                System.out.println(e.getMessage());
-//            }
-//        });
-//        try {
-//            companiesDAO.deleteCompany(companyId);
-//        } catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-
     }
 
     public List<Company> getAllCompanies() throws SQLException, InterruptedException {

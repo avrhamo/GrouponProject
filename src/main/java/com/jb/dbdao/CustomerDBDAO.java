@@ -108,8 +108,9 @@ public class CustomerDBDAO implements CustomersDAO {
         map.put(1,id);
         ResultSet resultSet = DBUtils.runQueryWithResults(QUERY_SELECT_ONE_BY_ID,map);
         resultSet.next();
-        return new Customer(resultSet.getInt(1),resultSet.getString(2),
+        Customer customerFromDb = new Customer(resultSet.getInt(1),resultSet.getString(2),
                 resultSet.getString(3),resultSet.getString(4),resultSet.getString(5));
+        return customerFromDb;
     }
 
     @Override

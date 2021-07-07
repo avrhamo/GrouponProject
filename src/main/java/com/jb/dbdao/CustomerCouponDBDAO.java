@@ -67,11 +67,9 @@ public class CustomerCouponDBDAO implements CustomersCouponDAO {
     public List<CustomerVsCoupon> getAllByCouponId(int couponId) throws SQLException, InterruptedException {
 
         List<CustomerVsCoupon> customerVsCoupons = new ArrayList<>();
-        //Connection connection = null;
         Map<Integer, Object> map = new HashMap<>();
         map.put(1, couponId);
         try {
-            //connection = ConnectionPool.getInstance().getConnection();
             ResultSet resultSet = DBUtils.runQueryWithResults(SELECT_ALL_CUSTOMERS_COUPONS_BY_ID, map);
             while (resultSet.next()) {
                 int resultCustomerId = resultSet.getInt(1);
